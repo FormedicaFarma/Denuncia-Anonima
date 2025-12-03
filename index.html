@@ -8,298 +8,316 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-    /* O CSS foi ajustado para usar #416BA7 como cor principal e adicionar a modal */
-    
-    /* Cores de Destaque */
-    :root {
-        --cor-principal: #416BA7; /* Azul Principal */
-        --cor-secundaria: #345587; /* Azul escuro para hover */
-        --cor-fundo-suave: #e6eef8; /* Fundo suave, levemente azulado */
-    }
+        /* O CSS foi ajustado para usar #416BA7 como cor principal e adicionar a modal */
+        
+        /* Cores de Destaque */
+        :root {
+            --cor-principal: #416BA7; /* Azul Principal */
+            --cor-secundaria: #345587; /* Azul escuro para hover */
+            --cor-fundo-suave: #e6eef8; /* Fundo suave, levemente azulado */
+        }
 
-    body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f4f7f6;
-        color: #333;
-        line-height: 1.6;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        padding: 20px;
-    }
-
-    .container {
-        background-color: #ffffff;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        max-width: 800px;
-        width: 100%;
-        margin-top: 30px;
-    }
-
-    header {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    .logo {
-        max-width: 250px;
-        height: auto;
-        margin: 0 auto 15px auto;
-        display: block;
-    }
-
-    h1 {
-        color: #2c3e50;
-        font-weight: 700;
-        font-size: 2em;
-        border-bottom: 3px solid var(--cor-principal); /* Cor Principal */
-        padding-bottom: 10px;
-        display: inline-block;
-    }
-
-    .intro-text, .section-title {
-        margin-bottom: 20px;
-        padding: 15px;
-        border-left: 5px solid var(--cor-principal); /* Cor Principal */
-        background-color: var(--cor-fundo-suave); /* Fundo Suave */
-        border-radius: 4px;
-    }
-
-    .intro-text p {
-        margin: 0 0 10px 0;
-    }
-
-    .intro-text ul {
-        list-style-type: '👉';
-        padding-left: 20px;
-    }
-
-    .intro-text li {
-        padding-left: 10px;
-        margin-bottom: 5px;
-    }
-    
-    .anonymous-note {
-        background-color: #fffae0;
-        border: 1px solid #ffcc00;
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 4px;
-        font-style: italic;
-    }
-
-    .form-group {
-        margin-bottom: 25px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 700;
-        color: #2c3e50;
-    }
-
-    input[type="text"],
-    input[type="date"],
-    textarea,
-    select {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        box-sizing: border-box;
-        font-size: 1em;
-        transition: border-color 0.3s;
-    }
-
-    input[type="text"]:focus,
-    input[type="date"]:focus,
-    textarea:focus,
-    select:focus {
-        border-color: var(--cor-principal); /* Cor Principal */
-        outline: none;
-        box-shadow: 0 0 5px rgba(65, 107, 167, 0.5); /* Sombra com a cor principal */
-    }
-
-    textarea {
-        resize: vertical;
-        min-height: 150px;
-    }
-
-    .checkbox-group label {
-        font-weight: 400;
-        margin-bottom: 0;
-        display: flex;
-        align-items: center;
-    }
-
-    .checkbox-group input[type="checkbox"],
-    .checkbox-group input[type="radio"] {
-        margin-right: 10px;
-        transform: scale(1.2);
-    }
-
-    .checkbox-item {
-        margin-bottom: 10px;
-    }
-
-    /* Estilo para o novo botão de política - ALTERADO PARA FUNDO AZUL */
-    .btn-policy {
-        background-color: var(--cor-principal); /* Fundo Azul Sólido */
-        color: white; /* Texto Branco */
-        border: 2px solid var(--cor-principal);
-        padding: 15px 25px; /* Aumentei o padding para ficar igual ao de envio */
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 1.1em; /* Aumentei a fonte para ficar igual ao de envio */
-        font-weight: 700;
-        transition: background-color 0.3s, color 0.3s, transform 0.1s;
-        width: 100%;
-        margin-bottom: 25px; /* Espaço antes do formulário */
-    }
-    .btn-policy:hover {
-        background-color: var(--cor-secundaria); /* Fundo azul escuro no hover */
-        border-color: var(--cor-secundaria);
-        transform: scale(0.99);
-    }
-    
-    /* Estilo para o botão de envio (mantido) */
-    button[type="submit"] {
-        background-color: var(--cor-principal); /* Cor Principal */
-        color: white;
-        padding: 15px 25px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 1.1em;
-        font-weight: 700;
-        transition: background-color 0.3s, transform 0.1s;
-        width: 100%;
-    }
-
-    button[type="submit"]:hover {
-        background-color: var(--cor-secundaria); /* Cor Secundária (azul mais escuro) */
-    }
-
-    button[type="submit"]:active {
-        transform: scale(0.99);
-    }
-
-    footer {
-        text-align: center;
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #eee;
-        font-size: 0.9em;
-        color: #777;
-    }
-
-    .disclaimer {
-        background-color: #f4f7f6;
-        padding: 15px;
-        border-radius: 6px;
-        margin-top: 20px;
-        border: 1px dashed #ccc;
-    }
-    
-    /* ------------------ ESTILOS DA JANELA MODAL (MANTIDOS) ------------------ */
-
-    /* Fundo escuro que cobre toda a tela */
-    .modal {
-        display: none; /* Escondido por padrão */
-        position: fixed; /* Fixado para cobrir toda a tela */
-        z-index: 1000; /* Acima de todo o resto */
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto; /* Permite scroll se o conteúdo for grande */
-        background-color: rgba(0,0,0,0.7); /* Fundo preto transparente */
-        padding-top: 60px;
-    }
-
-    /* Conteúdo principal da modal */
-    .modal-content {
-        background-color: #fefefe;
-        margin: 5% auto; /* Centraliza verticalmente e na horizontal */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 90%; 
-        max-width: 1000px; /* Largura máxima da janela */
-        border-radius: 8px;
-        position: relative;
-        height: 90vh; /* Altura de 90% da viewport */
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        display: flex;
-        flex-direction: column;
-    }
-    
-    /* Botão para fechar a modal */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 35px;
-        font-weight: bold;
-        line-height: 1;
-        margin-left: auto;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 10px;
-        margin-bottom: 10px;
-    }
-    .modal-header h2 {
-        margin: 0;
-        color: var(--cor-principal);
-        font-size: 1.5em;
-    }
-
-    /* Iframe para carregar o PDF/Política */
-    .policy-viewer {
-        flex-grow: 1; /* Faz o iframe ocupar todo o espaço restante */
-        border: 1px solid #ccc;
-        width: 100%;
-        /* Remover scrollbars desnecessários no iframe */
-        overflow: hidden; 
-    }
-
-
-    /* Responsividade básica */
-    @media (max-width: 600px) {
-        .container {
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
             padding: 20px;
         }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin-top: 30px;
+            position: relative; /* Necessário para posicionar o botão de política */
+        }
+
+        /* Contêiner para posicionar o botão de política */
+        .header-policy-wrapper {
+            position: absolute;
+            top: 20px; /* Distância do topo do container */
+            right: 20px; /* Distância da lateral direita do container */
+            z-index: 50; /* Garante que fique acima de outros elementos */
+        }
+        
+        /* Novo estilo para o botão de política (pequeno, no canto) */
+        .btn-header-policy {
+            background-color: transparent;
+            color: var(--cor-principal);
+            border: 1px solid var(--cor-principal);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: background-color 0.3s, color 0.3s;
+            white-space: nowrap; /* Impede a quebra de linha do texto */
+        }
+        .btn-header-policy:hover {
+            background-color: var(--cor-principal);
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 30px; /* Ajuste para dar espaço ao botão de política acima */
+        }
+
+        .logo {
+            max-width: 250px;
+            height: auto;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
+
         h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 2em;
+            border-bottom: 3px solid var(--cor-principal); /* Cor Principal */
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .intro-text, .section-title {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 5px solid var(--cor-principal); /* Cor Principal */
+            background-color: var(--cor-fundo-suave); /* Fundo Suave */
+            border-radius: 4px;
+        }
+
+        .intro-text p {
+            margin: 0 0 10px 0;
+        }
+
+        .intro-text ul {
+            list-style-type: '👉';
+            padding-left: 20px;
+        }
+
+        .intro-text li {
+            padding-left: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .anonymous-note {
+            background-color: #fffae0;
+            border: 1px solid #ffcc00;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--cor-principal); /* Cor Principal */
+            outline: none;
+            box-shadow: 0 0 5px rgba(65, 107, 167, 0.5); /* Sombra com a cor principal */
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .checkbox-group label {
+            font-weight: 400;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input[type="checkbox"],
+        .checkbox-group input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .checkbox-item {
+            margin-bottom: 10px;
+        }
+
+        /* Estilo para o botão de envio (mantido) */
+        button[type="submit"] {
+            background-color: var(--cor-principal); /* Cor Principal */
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.1s;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--cor-secundaria); /* Cor Secundária (azul mais escuro) */
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.99);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .disclaimer {
+            background-color: #f4f7f6;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border: 1px dashed #ccc;
+        }
+        
+        /* ------------------ ESTILOS DA JANELA MODAL (MANTIDOS) ------------------ */
+
+        /* Fundo escuro que cobre toda a tela */
+        .modal {
+            display: none; /* Escondido por padrão */
+            position: fixed; /* Fixado para cobrir toda a tela */
+            z-index: 1000; /* Acima de todo o resto */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Permite scroll se o conteúdo for grande */
+            background-color: rgba(0,0,0,0.7); /* Fundo preto transparente */
+            padding-top: 60px;
+        }
+
+        /* Conteúdo principal da modal */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* Centraliza verticalmente e na horizontal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%; 
+            max-width: 1000px; /* Largura máxima da janela */
+            border-radius: 8px;
+            position: relative;
+            height: 90vh; /* Altura de 90% da viewport */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Botão para fechar a modal */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 35px;
+            font-weight: bold;
+            line-height: 1;
+            margin-left: auto;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: var(--cor-principal);
             font-size: 1.5em;
         }
-        .logo {
-            max-width: 200px;
+
+        /* Iframe para carregar o PDF/Política */
+        .policy-viewer {
+            flex-grow: 1; /* Faz o iframe ocupar todo o espaço restante */
+            border: 1px solid #ccc;
+            width: 100%;
+            /* Remover scrollbars desnecessários no iframe */
+            overflow: hidden; 
         }
-        .modal-content {
-            width: 95%; 
-            margin: 10px auto;
-            height: 95vh;
+
+
+        /* Responsividade básica */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .logo {
+                max-width: 200px;
+            }
+            .modal-content {
+                width: 95%; 
+                margin: 10px auto;
+                height: 95vh;
+            }
+            .header-policy-wrapper {
+                 /* Ajusta a posição em telas menores para não ficar colado */
+                top: 10px; 
+                right: 10px; 
+            }
         }
-    }
-</style>
+    </style>
 </head>
 <body>
     <div class="container">
+        <div class="header-policy-wrapper">
+            <button class="btn-header-policy" id="openPolicyBtn">
+                Política do Canal de Denúncias
+            </button>
+        </div>
         <header>
             <img src="Logo - Formedica - Horizontal.png" alt="Formédica Logo" class="logo">
             <h1>Canal de Denúncias Anônimas</h1>
@@ -317,10 +335,6 @@
             </ul>
         </div>
         
-        <button class="btn-policy" id="openPolicyBtn">
-            Ver a Política do Canal de Denúncias
-        </button>
-
         <div class="anonymous-note">
             <label>🔒 Anonimato garantido:</label>
             <p>**Este formulário não registra e-mails, nomes ou endereços IP.** Sua identidade estará completamente protegida.</p>
@@ -426,8 +440,8 @@
                 <span class="close" id="closePolicyBtn">&times;</span>
             </div>
             
-            <iframe id="policyIframe" class="policy-viewer" src="Politica_Canal_Denuncias_Formedica.pdf" frameborder="0">
-                <p>Seu navegador não suporta iframes. <a href="Politica_Canal_Denuncias_Formedica.pdf" target="_blank">Clique aqui para baixar a política.</a></p>
+            <iframe id="policyIframe" class="policy-viewer" src="[CAMINHO_PARA_SUA_POLITICA.pdf]" frameborder="0">
+                <p>Seu navegador não suporta iframes. <a href="[CAMINHO_PARA_SUA_POLITICA.pdf]" target="_blank">Clique aqui para baixar a política.</a></p>
             </iframe>
         </div>
     </div>
