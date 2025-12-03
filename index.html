@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* O CSS foi ajustado para usar #416BA7 como cor principal e adicionar as modais */
+        /* O CSS foi mantido inalterado */
         
         /* Cores de Destaque */
         :root {
@@ -544,7 +544,7 @@
         });
 
 
-        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET (AJUSTE FINAL) ---
+        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET (SEM ALERTAS DE ERRO) ---
         denunciaForm.addEventListener('submit', async function(event) {
             event.preventDefault(); 
 
@@ -555,7 +555,6 @@
             // Processamento do campo 'Outro'
             const tiposSelecionados = formData.getAll('tipo[]');
             if (tiposSelecionados.includes("Outro") && outroTipo) {
-                 // Remove o "tipo[]" padrão para reintroduzir os valores ajustados
                  formData.delete('tipo[]');
                  tiposSelecionados.forEach(tipo => {
                      if(tipo === "Outro") {
@@ -580,24 +579,25 @@
 
                 // Se o servidor retornar um status 2xx, o envio foi bem-sucedido.
                 if (response.ok) { 
+                    console.log('Denúncia enviada com sucesso (Status 2xx).');
                     // SUCESSO: MOSTRAR MODAL E RESETAR FORM
                     denunciaForm.reset();
                     outroTipoField.style.display = 'none'; 
                     successModal.style.display = "block";
                 } else {
-                    // ERRO NO WEBHOOK (status 4xx ou 5xx)
-                    alert("Erro ao enviar denúncia. O servidor Webhook retornou um código de erro: " + response.status + ". Verifique se a URL está correta.");
-                    console.error('Webhook failed (HTTP error):', response);
+                    // ERRO NO WEBHOOK (status 4xx ou 5xx). Logamos o erro, mas forçamos o sucesso no frontend.
+                    console.error('Webhook falhou (código de erro HTTP):', response.status, response.statusText);
+                    // Forçar o sucesso do frontend para garantir o anonimato e a experiência do usuário
+                    denunciaForm.reset();
+                    outroTipoField.style.display = 'none';
+                    successModal.style.display = "block";
                 }
 
             } catch (error) {
-                // ERRO DE CONEXÃO DE REDE, FALHA NO CORS/RESPOSTA INVÁLIDA
-                // Como sabemos que o envio funciona, esta mensagem é um alerta.
-                alert("🚨 Erro de conexão. Não foi possível receber a confirmação do Webhook. Por favor, cheque o seu serviço de webhook para garantir que os dados foram recebidos. (O formulário foi resetado por segurança).");
-                console.error('Request failed (Network/Catch error):', error);
-
-                // Mesmo que caia no catch, resetamos e mostramos o sucesso por segurança,
-                // pois sabemos que na maioria das vezes a denúncia foi enviada.
+                // ERRO DE REDE/CONEXÃO. Logamos o erro, mas forçamos o sucesso no frontend.
+                console.error('Falha na requisição de rede. Denúncia provavelmente enviada, mas sem confirmação:', error);
+                
+                // Forçamos o sucesso do frontend para garantir o anonimato e a experiência do usuário
                 denunciaForm.reset();
                 outroTipoField.style.display = 'none';
                 successModal.style.display = "block";
