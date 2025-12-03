@@ -391,7 +391,7 @@
         
         <div class="anonymous-note">
             <label>🔒 Anonimato garantido:</label>
-            <p>Este formulário não registra e-mails, nomes ou endereços IP. Seus dados de contato (Whatsapp) são **opcionais** e visam apenas facilitar um possível retorno sobre o caso, mantendo o máximo de sigilo.</p>
+            <p>Este formulário não registra e-mails, nomes ou endereços IP. Seus dados de contato (**Whatsapp é obrigatório**) são a única forma de garantirmos um retorno sobre o caso, mantendo o máximo de sigilo.</p>
         </div>
         
         <div class="intro-text disclaimer">
@@ -471,8 +471,8 @@
             </div>
             
             <div class="form-group">
-                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: (Opcional)</label>
-                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx">
+                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: *</label>
+                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx" required>
             </div>
             <div class="form-group">
                 <label for="comentario_final">Deseja deixar alguma recomendação ou comentário final? (Opcional)</label>
@@ -528,7 +528,7 @@
         
         // --- CONFIGURAÇÃO DO WEBHOOK ---
         const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **VERIFIQUE SUA URL**
-        // 🚨 NOVO: E-mail Padrão Fixo para o Payload
+        // 🚨 E-mail Padrão Fixo para o Payload (invisível ao usuário)
         const EMAIL_AUTOMACAO = "automacaoformedica@gmail.com"; 
 
         // --- LÓGICA DAS MODAIS ---
@@ -610,14 +610,15 @@
             }
             event.preventDefault(); 
             
+            // O navegador já fará a validação do campo 'required' (whatsapp)
+            
             const formData = new FormData(denunciaForm);
             const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
 
-            // 2. ADIÇÃO DO E-MAIL FIXO AQUI NO PAYLOAD
-            // O nome do campo no payload será "email_padrao_automacao"
-            formData.append('email_padrao_automacao', EMAIL_AUTOMACAO); // <--- O ÚNICO E-MAIL NO PAYLOAD
+            // 2. ADIÇÃO DO E-MAIL FIXO NO PAYLOAD (email_padrao_automacao)
+            formData.append('email_padrao_automacao', EMAIL_AUTOMACAO); 
 
-            // 3. Processamento do campo 'Outro' (Mantido de seu código original)
+            // 3. Processamento do campo 'Outro' (Mantido da lógica original)
             const outroTipo = formData.get('outro_tipo');
             const tiposSelecionados = formData.getAll('tipo[]');
             
@@ -635,7 +636,7 @@
             formData.delete('outro_tipo'); // Limpa o campo extra
 
 
-            // 4. Envio ao Webhook (Mantido de seu código original)
+            // 4. Envio ao Webhook
             try {
                 submitButton.disabled = true;
                 submitButton.textContent = 'Enviando...';
