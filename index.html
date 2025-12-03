@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* O CSS foi ajustado para usar #416BA7 como cor principal e adicionar a modal */
+        /* O CSS foi ajustado para usar #416BA7 como cor principal e adicionar as modais */
         
         /* Cores de Destaque */
         :root {
@@ -38,15 +38,15 @@
             max-width: 800px;
             width: 100%;
             margin-top: 30px;
-            position: relative; /* Necessário para posicionar o botão de política */
+            position: relative;
         }
 
         /* Contêiner para posicionar o botão de política */
         .header-policy-wrapper {
             position: absolute;
-            top: 20px; /* Distância do topo do container */
-            right: 20px; /* Distância da lateral direita do container */
-            z-index: 50; /* Garante que fique acima de outros elementos */
+            top: 20px;
+            right: 20px;
+            z-index: 50;
         }
         
         /* Novo estilo para o botão de política (pequeno, no canto) */
@@ -60,7 +60,7 @@
             font-size: 0.9em;
             font-weight: 500;
             transition: background-color 0.3s, color 0.3s;
-            white-space: nowrap; /* Impede a quebra de linha do texto */
+            white-space: nowrap;
         }
         .btn-header-policy:hover {
             background-color: var(--cor-principal);
@@ -70,7 +70,7 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            padding-top: 30px; /* Ajuste para dar espaço ao botão de política acima */
+            padding-top: 30px;
         }
 
         .logo {
@@ -84,7 +84,7 @@
             color: #2c3e50;
             font-weight: 700;
             font-size: 2em;
-            border-bottom: 3px solid var(--cor-principal); /* Cor Principal */
+            border-bottom: 3px solid var(--cor-principal);
             padding-bottom: 10px;
             display: inline-block;
         }
@@ -92,8 +92,8 @@
         .intro-text, .section-title {
             margin-bottom: 20px;
             padding: 15px;
-            border-left: 5px solid var(--cor-principal); /* Cor Principal */
-            background-color: var(--cor-fundo-suave); /* Fundo Suave */
+            border-left: 5px solid var(--cor-principal);
+            background-color: var(--cor-fundo-suave);
             border-radius: 4px;
         }
 
@@ -148,9 +148,9 @@
         input[type="date"]:focus,
         textarea:focus,
         select:focus {
-            border-color: var(--cor-principal); /* Cor Principal */
+            border-color: var(--cor-principal);
             outline: none;
-            box-shadow: 0 0 5px rgba(65, 107, 167, 0.5); /* Sombra com a cor principal */
+            box-shadow: 0 0 5px rgba(65, 107, 167, 0.5);
         }
 
         textarea {
@@ -158,21 +158,17 @@
             min-height: 150px;
         }
 
-        /* ESTILOS ALTERADOS PARA CHECKBOXES E RADIOS AO LADO */
         .checkbox-group {
             display: flex;
-            flex-wrap: wrap; /* Permite que os itens quebrem para a linha de baixo */
-            gap: 15px; /* Espaçamento entre os grupos de itens */
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .checkbox-item {
             margin-bottom: 10px;
-            /* Permite que os itens ocupem cerca de metade do espaço */
-            flex: 1 1 45%; 
-            /* Se for para forçar a quebra, use um valor menor, mas 45% é bom para telas maiores */
+            flex: 1 1 45%;
         }
         
-        /* Ajuste para garantir que a label fique alinhada com o input */
         .checkbox-group label {
             font-weight: 400;
             margin-bottom: 0;
@@ -185,14 +181,12 @@
         .checkbox-group input[type="radio"] {
             margin-right: 10px;
             transform: scale(1.2);
-            /* Garante que o input seja parte do fluxo sem quebrar a linha */
             flex-shrink: 0; 
         }
-        /* FIM DOS ESTILOS ALTERADOS */
 
         /* Estilo para o botão de envio (mantido) */
         button[type="submit"] {
-            background-color: var(--cor-principal); /* Cor Principal */
+            background-color: var(--cor-principal);
             color: white;
             padding: 15px 25px;
             border: none;
@@ -205,7 +199,7 @@
         }
 
         button[type="submit"]:hover {
-            background-color: var(--cor-secundaria); /* Cor Secundária (azul mais escuro) */
+            background-color: var(--cor-secundaria);
         }
 
         button[type="submit"]:active {
@@ -229,39 +223,64 @@
             border: 1px dashed #ccc;
         }
         
-        /* ------------------ ESTILOS DA JANELA MODAL (MANTIDOS) ------------------ */
+        /* ------------------ ESTILOS GERAIS DA JANELA MODAL ------------------ */
 
         /* Fundo escuro que cobre toda a tela */
         .modal {
-            display: none; /* Escondido por padrão */
-            position: fixed; /* Fixado para cobrir toda a tela */
-            z-index: 1000; /* Acima de todo o resto */
+            display: none;
+            position: fixed;
+            z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto; /* Permite scroll se o conteúdo for grande */
-            background-color: rgba(0,0,0,0.7); /* Fundo preto transparente */
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
             padding-top: 60px;
         }
 
-        /* Conteúdo principal da modal */
-        .modal-content {
+        /* Conteúdo da Modal de Agradecimento (menor e centralizada) */
+        #successModal .modal-content-small {
             background-color: #fefefe;
-            margin: 5% auto; /* Centraliza verticalmente e na horizontal */
+            margin: 15% auto; /* Centraliza mais no meio da tela */
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%; 
+            max-width: 500px; /* Largura pequena */
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        #successModal h2 {
+            color: var(--cor-principal);
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        #successModal .icon-check {
+            font-size: 4em;
+            color: #28a745; /* Verde de sucesso */
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Conteúdo da Modal de Política (grande) */
+        #policyModal .modal-content-large {
+            background-color: #fefefe;
+            margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 90%; 
-            max-width: 1000px; /* Largura máxima da janela */
+            max-width: 1000px;
             border-radius: 8px;
             position: relative;
-            height: 90vh; /* Altura de 90% da viewport */
+            height: 90vh;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
         }
-        
-        /* Botão para fechar a modal */
+
+        /* Botão para fechar a modal de política */
         .close {
             color: #aaa;
             float: right;
@@ -294,11 +313,10 @@
 
         /* Iframe para carregar o PDF/Política */
         .policy-viewer {
-            flex-grow: 1; /* Faz o iframe ocupar todo o espaço restante */
+            flex-grow: 1;
             border: 1px solid #ccc;
             width: 100%;
-            /* Remover scrollbars desnecessários no iframe */
-            overflow: hidden; 
+            overflow: hidden;
         }
 
 
@@ -307,24 +325,19 @@
             .container {
                 padding: 20px;
             }
-            h1 {
-                font-size: 1.5em;
-            }
-            .logo {
-                max-width: 200px;
-            }
-            .modal-content {
+            #policyModal .modal-content-large {
                 width: 95%; 
                 margin: 10px auto;
                 height: 95vh;
             }
+            #successModal .modal-content-small {
+                margin: 40% auto;
+            }
             .header-policy-wrapper {
-                 /* Ajusta a posição em telas menores para não ficar colado */
                 top: 10px; 
                 right: 10px; 
             }
-            /* Em telas pequenas, forçar uma opção por linha */
-             .checkbox-item {
+            .checkbox-item {
                 flex: 1 1 100%;
             }
         }
@@ -356,7 +369,7 @@
         
         <div class="anonymous-note">
             <label>🔒 Anonimato garantido:</label>
-            <p>Este formulário não registra e-mails, nomes ou endereços IP. Sua identidade estará completamente protegida.</p>
+            <p>**Este formulário não registra e-mails, nomes ou endereços IP.** Sua identidade estará completamente protegida.</p>
         </div>
         
         <div class="intro-text disclaimer">
@@ -366,7 +379,7 @@
         </div>
 
 
-        <form action="#" method="POST">
+        <form id="denunciaForm">
             <div class="form-group">
                 <label for="sede">Qual a sua sede? *</label>
                 <select id="sede" name="sede" required>
@@ -388,15 +401,15 @@
             <div class="form-group">
                 <label>Qual é o tipo de situação que você deseja relatar? (Pode selecionar mais de uma) *</label>
                 <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="checkbox" id="tipo1" name="tipo[]" value="assedio_moral"><label for="tipo1">Assédio moral</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo2" name="tipo[]" value="assedio_sexual"><label for="tipo2">Assédio sexual</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo3" name="tipo[]" value="discriminacao"><label for="tipo3">Discriminação (raça, gênero, orientação sexual etc.)</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo4" name="tipo[]" value="corrupcao"><label for="tipo4">Corrupção ou fraude</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo5" name="tipo[]" value="desvio_conduta"><label for="tipo5">Desvio de conduta ética</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo6" name="tipo[]" value="abuso_autoridade"><label for="tipo6">Abuso de autoridade</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo7" name="tipo[]" value="irregularidade_trab"><label for="tipo7">Irregularidade trabalhista</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo8" name="tipo[]" value="uso_indevido_recursos"><label for="tipo8">Uso indevido de recursos da empresa</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo9_outro" name="tipo[]" value="outro"><label for="tipo9_outro">Outro</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo1" name="tipo[]" value="Assédio moral"><label for="tipo1">Assédio moral</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo2" name="tipo[]" value="Assédio sexual"><label for="tipo2">Assédio sexual</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo3" name="tipo[]" value="Discriminação"><label for="tipo3">Discriminação (raça, gênero, orientação sexual etc.)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo4" name="tipo[]" value="Corrupção ou fraude"><label for="tipo4">Corrupção ou fraude</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo5" name="tipo[]" value="Desvio de conduta ética"><label for="tipo5">Desvio de conduta ética</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo6" name="tipo[]" value="Abuso de autoridade"><label for="tipo6">Abuso de autoridade</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo7" name="tipo[]" value="Irregularidade trabalhista"><label for="tipo7">Irregularidade trabalhista</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo8" name="tipo[]" value="Uso indevido de recursos da empresa"><label for="tipo8">Uso indevido de recursos da empresa</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo9_outro" name="tipo[]" value="Outro"><label for="tipo9_outro">Outro</label></div>
                 </div>
                 <div class="form-group" id="outroTipoField" style="display:none; margin-top: 15px;">
                     <label for="outro_tipo">Qual tipo de situação?</label>
@@ -427,10 +440,10 @@
             <div class="form-group">
                 <label>A situação ainda está ocorrendo? *</label>
                 <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="radio" id="frequencia1" name="frequencia" value="sim_agora" required><label for="frequencia1">Sim, está acontecendo neste momento</label></div>
-                    <div class="checkbox-item"><input type="radio" id="frequencia2" name="frequencia" value="nao_parou"><label for="frequencia2">Não, já aconteceu e parou</label></div>
-                    <div class="checkbox-item"><input type="radio" id="frequencia3" name="frequencia" value="com_frequencia"><label for="frequencia3">Acontece com frequência</label></div>
-                    <div class="checkbox-item"><input type="radio" id="frequencia4" name="frequencia" value="nao_tenho_certeza"><label for="frequencia4">Não tenho certeza</label></div>
+                    <div class="checkbox-item"><input type="radio" id="frequencia1" name="frequencia" value="Sim, está acontecendo neste momento" required><label for="frequencia1">Sim, está acontecendo neste momento</label></div>
+                    <div class="checkbox-item"><input type="radio" id="frequencia2" name="frequencia" value="Não, já aconteceu e parou"><label for="frequencia2">Não, já aconteceu e parou</label></div>
+                    <div class="checkbox-item"><input type="radio" id="frequencia3" name="frequencia" value="Acontece com frequência"><label for="frequencia3">Acontece com frequência</label></div>
+                    <div class="checkbox-item"><input type="radio" id="frequencia4" name="frequencia" value="Não tenho certeza"><label for="frequencia4">Não tenho certeza</label></div>
                 </div>
             </div>
 
@@ -454,8 +467,18 @@
         </footer>
     </div>
 
+    <div id="successModal" class="modal">
+        <div class="modal-content-small">
+            <span class="icon-check">✅</span>
+            <h2>Denúncia Enviada com Sucesso!</h2>
+            <p>Agradecemos a sua contribuição. Sua denúncia foi registrada e será analisada com a máxima **confidencialidade e imparcialidade**.</p>
+            <p>Reforçamos: Sua identidade está completamente protegida. **Este sistema garante o seu anonimato.**</p>
+            <button onclick="closeSuccessModal()" class="btn-header-policy" style="background-color: var(--cor-principal); color: white; margin-top: 15px;">Fechar</button>
+        </div>
+    </div>
+
     <div id="policyModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content-large">
             <div class="modal-header">
                 <h2>Política do Canal de Denúncias Formédica</h2>
                 <span class="close" id="closePolicyBtn">&times;</span>
@@ -468,40 +491,118 @@
     </div>
 
     <script>
-        // Lógica da Modal
-        var modal = document.getElementById("policyModal");
-        var btn = document.getElementById("openPolicyBtn");
-        var span = document.getElementById("closePolicyBtn");
-        
-        btn.onclick = function() {
-          modal.style.display = "block";
-        }
-        
-        span.onclick = function() {
-          modal.style.display = "none";
-        }
-        
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        }
+        // --- VARIÁVEIS DE DOM ---
+        var policyModal = document.getElementById("policyModal");
+        var openPolicyBtn = document.getElementById("openPolicyBtn");
+        var closePolicyBtn = document.getElementById("closePolicyBtn");
+        var successModal = document.getElementById("successModal");
+        var denunciaForm = document.getElementById("denunciaForm");
 
-        // Lógica para mostrar/esconder o campo "Outro"
         var outroCheckbox = document.getElementById('tipo9_outro');
         var outroTipoField = document.getElementById('outroTipoField');
         var outroTipoInput = document.getElementById('outro_tipo');
 
+        // --- CONFIGURAÇÃO DO WEBHOOK ---
+        const WEBHOOK_URL = "[SUA_URL_DO_WEBHOOK_AQUI]"; // <-- **SUBSTITUA ESTA LINHA**
+
+        // --- LÓGICA DA MODAL DE POLÍTICA ---
+        openPolicyBtn.onclick = function() {
+          policyModal.style.display = "block";
+        }
+        
+        closePolicyBtn.onclick = function() {
+          policyModal.style.display = "none";
+        }
+        
+        // Fecha a modal de política ao clicar fora
+        window.onclick = function(event) {
+          if (event.target == policyModal) {
+            policyModal.style.display = "none";
+          }
+        }
+
+        // --- LÓGICA DO CAMPO DINÂMICO "OUTRO" ---
         outroCheckbox.addEventListener('change', function() {
             if (this.checked) {
-                // Mostra o campo de texto quando "Outro" é selecionado
                 outroTipoField.style.display = 'block';
                 outroTipoInput.required = true;
             } else {
-                // Esconde o campo e limpa o valor quando "Outro" é desmarcado
                 outroTipoField.style.display = 'none';
                 outroTipoInput.required = false;
                 outroTipoInput.value = '';
+            }
+        });
+
+        // --- LÓGICA DA MODAL DE SUCESSO ---
+        function closeSuccessModal() {
+            successModal.style.display = "none";
+        }
+
+        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET ---
+        denunciaForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            // 1. COLETAR DADOS DO FORMULÁRIO
+            const formData = new FormData(denunciaForm);
+            const data = {};
+            
+            // Lidar com checkboxes (tipo[])
+            const tipos = [];
+            for (let [key, value] of formData.entries()) {
+                if (key === 'tipo[]') {
+                    tipos.push(value);
+                } else if (key !== 'outro_tipo') {
+                    data[key] = value;
+                }
+            }
+
+            // Adicionar tipo "Outro" se foi preenchido
+            if (tipos.includes("Outro") && formData.get('outro_tipo')) {
+                 // Substitui o "Outro" genérico pelo conteúdo do campo
+                 const index = tipos.indexOf("Outro");
+                 if (index !== -1) {
+                     tipos[index] = `Outro: ${formData.get('outro_tipo')}`;
+                 }
+            }
+
+            data['tipo_situacao'] = tipos.join(', ');
+            
+            // Remover chaves duplicadas/desnecessárias
+            delete data['tipo[]'];
+
+            // 2. FORMATAR DADOS PARA O WEBHOOK (JSON)
+            // O formato JSON é o mais comum para webhooks
+            const payload = {
+                // Adicione um carimbo de data/hora para registro
+                data_envio: new Date().toISOString(), 
+                ...data
+            };
+
+            // 3. ENVIAR DADOS VIA FETCH
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    // 4. SUCESSO: MOSTRAR MODAL E RESETAR FORM
+                    denunciaForm.reset();
+                    outroTipoField.style.display = 'none'; // Esconde o campo "Outro" novamente
+                    successModal.style.display = "block";
+                } else {
+                    // 5. ERRO NO WEBHOOK
+                    alert("Erro ao enviar denúncia (Status: " + response.status + "). Verifique a URL do Webhook ou tente novamente mais tarde.");
+                    console.error('Webhook failed:', response);
+                }
+
+            } catch (error) {
+                // 6. ERRO NA REQUISIÇÃO (Rede, CORS, etc.)
+                alert("Erro de conexão. Não foi possível enviar a denúncia. Tente novamente.");
+                console.error('Request failed:', error);
             }
         });
     </script>
