@@ -375,7 +375,7 @@
         
         <div class="anonymous-note">
             <label>🔒 Anonimato garantido:</label>
-            <p>Este formulário não registra e-mails, nomes ou endereços IP. Sua identidade estará completamente protegida.</p>
+            <p>**Este formulário não registra e-mails, nomes ou endereços IP.** Sua identidade estará completamente protegida.</p>
         </div>
         
         <div class="intro-text disclaimer">
@@ -388,7 +388,7 @@
         <form id="denunciaForm">
             <div class="form-group">
                 <label for="sede">Qual a sua sede? *</label>
-                <select id="sede" name="sede" required>
+                <select id="sede" name="sede" **required**>
                     <option value="">Selecione...</option>
                     <option value="matriz">Matriz - Batel</option>
                     <option value="sede2">Sede 2 - Santa Quitéria</option>
@@ -397,7 +397,7 @@
 
             <div class="form-group">
                 <label for="local_ocorrido">Local do Ocorrido *</label>
-                <select id="local_ocorrido" name="local_ocorrido" required>
+                <select id="local_ocorrido" name="local_ocorrido" **required**>
                     <option value="">Selecione...</option>
                     <option value="matriz">Matriz - Batel</option>
                     <option value="sede2">Sede 2 - Santa Quitéria</option>
@@ -425,28 +425,28 @@
 
             <div class="form-group">
                 <label for="quando">Quando a situação ocorreu? (Data aproximada ou período) *</label>
-                <input type="text" id="quando" name="quando" placeholder="Ex: Março de 2025; Semana passada; Dia 15/05/2025" required>
+                <input type="text" id="quando" name="quando" placeholder="Ex: Março de 2025; Semana passada; Dia 15/05/2025" **required**>
             </div>
 
             <div class="form-group">
                 <label for="onde">Onde a situação aconteceu? (Setor, local físico ou evento, por exemplo) *</label>
-                <input type="text" id="onde" name="onde" placeholder="Ex: Setor Financeiro; Cozinha da Matriz; Evento de confraternização" required>
+                <input type="text" id="onde" name="onde" placeholder="Ex: Setor Financeiro; Cozinha da Matriz; Evento de confraternização" **required**>
             </div>
 
             <div class="form-group">
                 <label for="quem">Quem está envolvido na situação? (Cargos, nomes, áreas, ou qualquer identificação possível) *</label>
-                <input type="text" id="quem" name="quem" placeholder="Ex: O gerente da área comercial; A secretária do setor X; O colega João" required>
+                <input type="text" id="quem" name="quem" placeholder="Ex: O gerente da área comercial; A secretária do setor X; O colega João" **required**>
             </div>
 
             <div class="form-group">
                 <label for="descricao">Descreva a situação com o máximo de detalhes que puder. (O que aconteceu, como, com quem, consequências) *</label>
-                <textarea id="descricao" name="descricao" required placeholder="Forneça o máximo de informações possíveis para que possamos investigar. Seja claro e objetivo."></textarea>
+                <textarea id="descricao" name="descricao" **required** placeholder="Forneça o máximo de informações possíveis para que possamos investigar. Seja claro e objetivo."></textarea>
             </div>
 
             <div class="form-group">
                 <label>A situação ainda está ocorrendo? *</label>
                 <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="radio" id="frequencia1" name="frequencia" value="Sim, está acontecendo neste momento" required><label for="frequencia1">Sim, está acontecendo neste momento</label></div>
+                    <div class="checkbox-item"><input type="radio" id="frequencia1" name="frequencia" value="Sim, está acontecendo neste momento" **required**><label for="frequencia1">Sim, está acontecendo neste momento</label></div>
                     <div class="checkbox-item"><input type="radio" id="frequencia2" name="frequencia" value="Não, já aconteceu e parou"><label for="frequencia2">Não, já aconteceu e parou</label></div>
                     <div class="checkbox-item"><input type="radio" id="frequencia3" name="frequencia" value="Acontece com frequência"><label for="frequencia3">Acontece com frequência</label></div>
                     <div class="checkbox-item"><input type="radio" id="frequencia4" name="frequencia" value="Não tenho certeza"><label for="frequencia4">Não tenho certeza</label></div>
@@ -454,8 +454,8 @@
             </div>
 
             <div class="form-group">
-                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: (Opcional)</label>
-                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx">
+                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: *</label>
+                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx" **required**>
             </div>
 
             <div class="form-group">
@@ -477,8 +477,8 @@
         <div class="modal-content-small">
             <span class="icon-check">✅</span>
             <h2>Denúncia Enviada com Sucesso!</h2>
-            <p>Agradecemos a sua contribuição. Sua denúncia foi registrada e será analisada com a máxima confidencialidade e imparcialidade.</p>
-            <p>Reforçamos: Sua identidade está completamente protegida. Este sistema garante o seu anonimato.</p>
+            <p>Agradecemos a sua contribuição. Sua denúncia foi registrada e será analisada com a máxima **confidencialidade e imparcialidade**.</p>
+            <p>Reforçamos: Sua identidade está completamente protegida. **Este sistema garante o seu anonimato.**</p>
             <p>Assim que possivel daremos um retorno a você!</p>
             <button onclick="closeSuccessModal()" class="btn-header-policy" style="background-color: var(--cor-principal); color: white; margin-top: 15px;">Fechar</button>
         </div>
@@ -510,7 +510,7 @@
         var outroTipoInput = document.getElementById('outro_tipo');
 
         // --- CONFIGURAÇÃO DO WEBHOOK ---
-        const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **SUBSTITUA ESTA LINHA**
+        const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **ATENÇÃO: VERIFIQUE SUA URL**
 
         // --- LÓGICA DAS MODAIS ---
         openPolicyBtn.onclick = function() {
