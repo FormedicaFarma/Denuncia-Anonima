@@ -538,71 +538,74 @@
             successModal.style.display = "none";
         }
 
-        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET ---
+        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET (MODIFICADA) ---
         denunciaForm.addEventListener('submit', async function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
 
-            // 1. COLETAR DADOS DO FORMULÁRIO
+            // 1. COLETAR DADOS DO FORMULÁRIO USANDO FormData
             const formData = new FormData(denunciaForm);
-            const data = {};
             
-            // Lidar com checkboxes (tipo[])
-            const tipos = [];
-            for (let [key, value] of formData.entries()) {
-                if (key === 'tipo[]') {
-                    tipos.push(value);
-                } else if (key !== 'outro_tipo') {
-                    data[key] = value;
-                }
+            // 2. TRATAMENTO ESPECIAL PARA OS TIPOS DE SITUAÇÃO
+            // O FormData padrão envia todos os "tipo[]" separadamente, o que é ótimo.
+            // Para simplificar a visualização no Webhook, vamos juntar os valores se a opção "Outro" foi usada.
+            
+            const tiposSelecionados = formData.getAll('tipo[]'); // Pega todos os valores de checkbox
+            const outroTipo = formData.get('outro_tipo');
+
+            if (tiposSelecionados.includes("Outro") && outroTipo) {
+                 // Remove o "Outro" genérico
+                 formData.delete('tipo[]');
+                 
+                 // Adiciona todos os tipos novamente, com o "Outro" detalhado
+                 tiposSelecionados.forEach(tipo => {
+                     if(tipo === "Outro") {
+                         formData.append('tipo[]', `Outro: ${outroTipo}`);
+                     } else {
+                         formData.append('tipo[]', tipo);
+                     }
+                 });
             }
 
-            // Adicionar tipo "Outro" se foi preenchido
-            if (tipos.includes("Outro") && formData.get('outro_tipo')) {
-                 // Substitui o "Outro" genérico pelo conteúdo do campo
-                 const index = tipos.indexOf("Outro");
-                 if (index !== -1) {
-                     tipos[index] = `Outro: ${formData.get('outro_tipo')}`;
-                 }
-            }
+            // O campo 'outro_tipo' não é mais necessário após o processamento
+            formData.delete('outro_tipo');
 
-            data['tipo_situacao'] = tipos.join(', ');
-            
-            // Remover chaves duplicadas/desnecessárias
-            delete data['tipo[]'];
 
-            // 2. FORMATAR DADOS PARA O WEBHOOK (JSON)
-            // O formato JSON é o mais comum para webhooks
-            const payload = {
-                // Adicione um carimbo de data/hora para registro
-                data_envio: new Date().toISOString(), 
-                ...data
-            };
-
-            // 3. ENVIAR DADOS VIA FETCH
+            // 3. ENVIAR DADOS VIA FETCH (SEM DEFINIR Content-Type)
+            // Ao não definir o Content-Type e passar o objeto FormData diretamente,
+            // o navegador usa automaticamente 'multipart/form-data', evitando o preflight OPTIONS.
             try {
+                // Desabilite o botão para evitar cliques duplicados
+                const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Enviando...';
+
                 const response = await fetch(WEBHOOK_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
+                    // **IMPORTANTE**: Não defina o 'Content-Type' aqui. Deixe o navegador fazer isso.
+                    body: formData // Passa o objeto FormData diretamente
                 });
 
-                if (response.ok) {
+                if (response.ok || response.status === 200 || response.status === 204) {
                     // 4. SUCESSO: MOSTRAR MODAL E RESETAR FORM
                     denunciaForm.reset();
                     outroTipoField.style.display = 'none'; // Esconde o campo "Outro" novamente
                     successModal.style.display = "block";
                 } else {
-                    // 5. ERRO NO WEBHOOK
-                    alert("Erro ao enviar denúncia (Status: " + response.status + "). Verifique a URL do Webhook ou tente novamente mais tarde.");
+                    // 5. ERRO NO WEBHOOK (recebeu, mas falhou no processamento, ex: 400, 500)
+                    alert("Erro ao enviar denúncia. O servidor Webhook retornou um erro (" + response.status + ").");
                     console.error('Webhook failed:', response);
                 }
 
             } catch (error) {
-                // 6. ERRO NA REQUISIÇÃO (Rede, CORS, etc.)
+                // 6. ERRO NA REQUISIÇÃO (Conexão, CORS, etc.)
+                // Agora este erro é mais raro e real
                 alert("Erro de conexão. Não foi possível enviar a denúncia. Tente novamente.");
                 console.error('Request failed:', error);
+            } finally {
+                // Reabilita o botão
+                const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
+                submitButton.disabled = false;
+                submitButton.textContent = 'Enviar Denúncia de Forma Anônima';
             }
         });
     </script>
