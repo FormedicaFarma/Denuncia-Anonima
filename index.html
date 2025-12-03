@@ -1,682 +1,671 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canal de Denúncias Anônimas - Formédica</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        /* O CSS foi mantido inalterado */
-        
-        /* Cores de Destaque */
-        :root {
-            --cor-principal: #416BA7; /* Azul Principal */
-            --cor-secundaria: #345587; /* Azul escuro para hover */
-            --cor-fundo-suave: #e6eef8; /* Fundo suave, levemente azulado */
-            --cor-erro: #dc3545; /* Vermelho para mensagens de erro */
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canal de Denúncias Anônimas - Formédica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* O CSS foi mantido inalterado */
+        
+        /* Cores de Destaque */
+        :root {
+            --cor-principal: #416BA7; /* Azul Principal */
+            --cor-secundaria: #345587; /* Azul escuro para hover */
+            --cor-fundo-suave: #e6eef8; /* Fundo suave, levemente azulado */
+            --cor-erro: #dc3545; /* Vermelho para mensagens de erro */
+        }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
 
-        .container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-            margin-top: 30px;
-            position: relative;
-        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin-top: 30px;
+            position: relative;
+        }
 
-        /* Contêiner para posicionar o botão de política */
-        .header-policy-wrapper {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 50;
-        }
-        
-        /* Novo estilo para o botão de política (pequeno, no canto) */
-        .btn-header-policy {
-            background-color: transparent;
-            color: var(--cor-principal);
-            border: 1px solid var(--cor-principal);
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: background-color 0.3s, color 0.3s;
-            white-space: nowrap;
-        }
-        .btn-header-policy:hover {
-            background-color: var(--cor-principal);
-            color: white;
-        }
+        /* Contêiner para posicionar o botão de política */
+        .header-policy-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 50;
+        }
+        
+        /* Novo estilo para o botão de política (pequeno, no canto) */
+        .btn-header-policy {
+            background-color: transparent;
+            color: var(--cor-principal);
+            border: 1px solid var(--cor-principal);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: background-color 0.3s, color 0.3s;
+            white-space: nowrap;
+        }
+        .btn-header-policy:hover {
+            background-color: var(--cor-principal);
+            color: white;
+        }
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-top: 30px;
-        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 30px;
+        }
 
-        /* Atenção: Verifique se este caminho da imagem está correto. */
-        .logo {
-            max-width: 250px;
-            height: auto;
-            margin: 0 auto 15px auto;
-            display: block;
-        }
+        /* Atenção: Verifique se este caminho da imagem está correto. */
+        .logo {
+            max-width: 250px;
+            height: auto;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
 
-        h1 {
-            color: #2c3e50;
-            font-weight: 700;
-            font-size: 2em;
-            border-bottom: 3px solid var(--cor-principal);
-            padding-bottom: 10px;
-            display: inline-block;
-        }
+        h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 2em;
+            border-bottom: 3px solid var(--cor-principal);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
 
-        .intro-text, .section-title {
-            margin-bottom: 20px;
-            padding: 15px;
-            border-left: 5px solid var(--cor-principal);
-            background-color: var(--cor-fundo-suave);
-            border-radius: 4px;
-        }
+        .intro-text, .section-title {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 5px solid var(--cor-principal);
+            background-color: var(--cor-fundo-suave);
+            border-radius: 4px;
+        }
 
-        .intro-text p {
-            margin: 0 0 10px 0;
-        }
+        .intro-text p {
+            margin: 0 0 10px 0;
+        }
 
-        .intro-text ul {
-            list-style-type: '👉';
-            padding-left: 20px;
-        }
+        .intro-text ul {
+            list-style-type: '👉';
+            padding-left: 20px;
+        }
 
-        .intro-text li {
-            padding-left: 10px;
-            margin-bottom: 5px;
-        }
-        
-        .anonymous-note {
-            background-color: #fffae0;
-            border: 1px solid #ffcc00;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            font-style: italic;
-        }
+        .intro-text li {
+            padding-left: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .anonymous-note {
+            background-color: #fffae0;
+            border: 1px solid #ffcc00;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-style: italic;
+        }
 
-        .form-group {
-            margin-bottom: 25px;
-        }
+        .form-group {
+            margin-bottom: 25px;
+        }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 700;
-            color: #2c3e50;
-        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
 
-        input[type="text"],
-        input[type="date"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
 
-        input[type="text"]:focus,
-        input[type="date"]:focus,
-        textarea:focus,
-        select:focus {
-            border-color: var(--cor-principal);
-            outline: none;
-            box-shadow: 0 0 5px rgba(65, 107, 167, 0.5);
-        }
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--cor-principal);
+            outline: none;
+            box-shadow: 0 0 5px rgba(65, 107, 167, 0.5);
+        }
 
-        textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
 
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
 
-        .checkbox-item {
-            margin-bottom: 10px;
-            flex: 1 1 45%;
-        }
-        
-        .checkbox-group label {
-            font-weight: 400;
-            margin-bottom: 0;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
+        .checkbox-item {
+            margin-bottom: 10px;
+            flex: 1 1 45%;
+        }
+        
+        .checkbox-group label {
+            font-weight: 400;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
 
-        .checkbox-group input[type="checkbox"],
-        .checkbox-group input[type="radio"] {
-            margin-right: 10px;
-            transform: scale(1.2);
-            flex-shrink: 0; 
-        }
+        .checkbox-group input[type="checkbox"],
+        .checkbox-group input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+            flex-shrink: 0; 
+        }
 
-        /* Estilo para a mensagem de erro */
-        .error-message {
-            color: var(--cor-erro);
-            background-color: #f8d7da;
-            border: 1px solid var(--cor-erro);
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 4px;
-            font-weight: 500;
-            display: none; /* Inicia oculto */
-        }
-
-
-        /* Estilo para o botão de envio */
-        button[type="submit"] {
-            background-color: var(--cor-principal);
-            color: white;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 700;
-            transition: background-color 0.3s, transform 0.1s;
-            width: 100%;
-        }
-
-        button[type="submit"]:hover:not(:disabled) {
-            background-color: var(--cor-secundaria);
-        }
-        
-        button[type="submit"]:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        button[type="submit"]:active:not(:disabled) {
-            transform: scale(0.99);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            font-size: 0.9em;
-            color: #777;
-        }
-
-        .disclaimer {
-            background-color: #f4f7f6;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 20px;
-            border: 1px dashed #ccc;
-        }
-        
-        /* ------------------ ESTILOS GERAIS DA JANELA MODAL ------------------ */
-
-        /* Fundo escuro que cobre toda a tela */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.7);
-            padding-top: 60px;
-        }
-
-        /* Conteúdo da Modal de Agradecimento (menor e centralizada) */
-        #successModal .modal-content-small {
-            background-color: #fefefe;
-            margin: 15% auto; /* Centraliza mais no meio da tela */
-            padding: 30px;
-            border: 1px solid #888;
-            width: 90%; 
-            max-width: 500px; /* Largura pequena */
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-
-        #successModal h2 {
-            color: var(--cor-principal);
-            margin-top: 0;
-            font-size: 1.8em;
-        }
-        #successModal .icon-check {
-            font-size: 4em;
-            color: #28a745; /* Verde de sucesso */
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        /* Conteúdo da Modal de Política (grande) */
-        #policyModal .modal-content-large {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 90%; 
-            max-width: 1000px;
-            border-radius: 8px;
-            position: relative;
-            height: 90vh;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Botão para fechar a modal de política */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 35px;
-            font-weight: bold;
-            line-height: 1;
-            margin-left: auto;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-        .modal-header h2 {
-            margin: 0;
-            color: var(--cor-principal);
-            font-size: 1.5em;
-        }
-
-        /* Iframe para carregar o PDF/Política */
-        .policy-viewer {
-            flex-grow: 1;
-            border: 1px solid #ccc;
-            width: 100%;
-            overflow: hidden;
-        }
+        /* Estilo para a mensagem de erro */
+        .error-message {
+            color: var(--cor-erro);
+            background-color: #f8d7da;
+            border: 1px solid var(--cor-erro);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            display: none; /* Inicia oculto */
+        }
 
 
-        /* Responsividade básica */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            #policyModal .modal-content-large {
-                width: 95%; 
-                margin: 10px auto;
-                height: 95vh;
-            }
-            #successModal .modal-content-small {
-                margin: 40% auto;
-            }
-            .header-policy-wrapper {
-                top: 10px; 
-                right: 10px; 
-            }
-            .checkbox-item {
-                flex: 1 1 100%;
-            }
-        }
-    </style>
+        /* Estilo para o botão de envio */
+        button[type="submit"] {
+            background-color: var(--cor-principal);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.1s;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover:not(:disabled) {
+            background-color: var(--cor-secundaria);
+        }
+        
+        button[type="submit"]:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        button[type="submit"]:active:not(:disabled) {
+            transform: scale(0.99);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .disclaimer {
+            background-color: #f4f7f6;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border: 1px dashed #ccc;
+        }
+        
+        /* ------------------ ESTILOS GERAIS DA JANELA MODAL ------------------ */
+
+        /* Fundo escuro que cobre toda a tela */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            padding-top: 60px;
+        }
+
+        /* Conteúdo da Modal de Agradecimento (menor e centralizada) */
+        #successModal .modal-content-small {
+            background-color: #fefefe;
+            margin: 15% auto; /* Centraliza mais no meio da tela */
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%; 
+            max-width: 500px; /* Largura pequena */
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        #successModal h2 {
+            color: var(--cor-principal);
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        #successModal .icon-check {
+            font-size: 4em;
+            color: #28a745; /* Verde de sucesso */
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Conteúdo da Modal de Política (grande) */
+        #policyModal .modal-content-large {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%; 
+            max-width: 1000px;
+            border-radius: 8px;
+            position: relative;
+            height: 90vh;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Botão para fechar a modal de política */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 35px;
+            font-weight: bold;
+            line-height: 1;
+            margin-left: auto;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: var(--cor-principal);
+            font-size: 1.5em;
+        }
+
+        /* Iframe para carregar o PDF/Política */
+        .policy-viewer {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            width: 100%;
+            overflow: hidden;
+        }
+
+
+        /* Responsividade básica */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            #policyModal .modal-content-large {
+                width: 95%; 
+                margin: 10px auto;
+                height: 95vh;
+            }
+            #successModal .modal-content-small {
+                margin: 40% auto;
+            }
+            .header-policy-wrapper {
+                top: 10px; 
+                right: 10px; 
+            }
+            .checkbox-item {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header-policy-wrapper">
-            <button class="btn-header-policy" id="openPolicyBtn">
-                Política do Canal de Denúncias
-            </button>
-        </div>
-        <header>
-            <img src="Logo - Formedica - Horizontal.png" alt="Formédica Logo" class="logo">
-            <h1>Canal de Denúncias Anônimas</h1>
-        </header>
+    <div class="container">
+        <div class="header-policy-wrapper">
+            <button class="btn-header-policy" id="openPolicyBtn">
+                Política do Canal de Denúncias
+            </button>
+        </div>
+        <header>
+            <img src="Logo - Formedica - Horizontal.png" alt="Formédica Logo" class="logo">
+            <h1>Canal de Denúncias Anônimas</h1>
+        </header>
 
-        <div class="intro-text">
-            <p>Este formulário é um canal exclusivo e seguro para que você possa relatar, de forma anônima e confidencial, qualquer situação que viole princípios éticos, legais ou as diretrizes da empresa.</p>
-            <p>Você pode utilizar este espaço para reportar, por exemplo:</p>
-            <ul>
-                <li>Assédio moral ou sexual</li>
-                <li>Discriminação</li>
-                <li>Irregularidades financeiras</li>
-                <li>Abusos de autoridade</li>
-                <li>Condutas inadequadas no ambiente de trabalho</li>
-            </ul>
-        </div>
-        
-        <div class="anonymous-note">
-            <label>🔒 Anonimato garantido:</label>
-            <p>Este formulário não registra e-mails, nomes ou endereços IP. Sua identidade estará completamente protegida.</p>
-        </div>
-        
-        <div class="intro-text disclaimer">
-             <label>💬 Importante:</label>
-             <p>Descreva a situação com o máximo de detalhes possíveis (data, local, pessoas envolvidas, etc.) para facilitar a análise e a tomada de providências. Todas as denúncias serão avaliadas com responsabilidade, imparcialidade e sigilo.</p>
-             <p>A sua voz é fundamental para um ambiente mais ético, seguro e respeitoso. Denuncie com confiança. Aqui, você será ouvido.</p>
-        </div>
-
-
-        <form id="denunciaForm">
-            <input type="hidden" id="emailDestinoHidden" name="email_destino" value="">
-                        <div class="form-group">
-                <label for="sede">Qual a sua sede? *</label>
-                <select id="sede" name="sede" required>
-                    <option value="">Selecione...</option>
-                    <option value="matriz">Matriz - Batel</option>
-                    <option value="sede2">Sede 2 - Santa Quitéria</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="local_ocorrido">Local do Ocorrido *</label>
-                <select id="local_ocorrido" name="local_ocorrido" required>
-                    <option value="">Selecione...</option>
-                    <option value="matriz">Matriz - Batel</option>
-                    <option value="sede2">Sede 2 - Santa Quitéria</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Qual é o tipo de situação que você deseja relatar? (Selecione pelo menos uma) *</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="checkbox" id="tipo1" name="tipo[]" value="Assédio moral"><label for="tipo1">Assédio moral</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo2" name="tipo[]" value="Assédio sexual"><label for="tipo2">Assédio sexual</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo3" name="tipo[]" value="Discriminação"><label for="tipo3">Discriminação (raça, gênero, orientação sexual etc.)</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo4" name="tipo[]" value="Corrupção ou fraude"><label for="tipo4">Corrupção ou fraude</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo5" name="tipo[]" value="Desvio de conduta ética"><label for="tipo5">Desvio de conduta ética</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo6" name="tipo[]" value="Abuso de autoridade"><label for="tipo6">Abuso de autoridade</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo7" name="tipo[]" value="Irregularidade trabalhista"><label for="tipo7">Irregularidade trabalhista</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo8" name="tipo[]" value="Uso indevido de recursos da empresa"><label for="tipo8">Uso indevido de recursos da empresa</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo9_outro" name="tipo[]" value="Outro"><label for="tipo9_outro">Outro</label></div>
-                </div>
-                 <div id="checkboxError" class="error-message">Por favor, selecione pelo menos um tipo de situação para a denúncia.</div>
-                <div class="form-group" id="outroTipoField" style="display:none; margin-top: 15px;">
-                    <label for="outro_tipo">Qual tipo de situação?</label>
-                    <input type="text" id="outro_tipo" name="outro_tipo" placeholder="Descreva o tipo de situação.">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="quando">Quando a situação ocorreu? (Data aproximada ou período) *</label>
-                <input type="text" id="quando" name="quando" placeholder="Ex: Março de 2025; Semana passada; Dia 15/05/2025" required>
-            </div>
-
-            <div class="form-group">
-                <label for="onde">Onde a situação aconteceu? (Setor, local físico ou evento, por exemplo) *</label>
-                <input type="text" id="onde" name="onde" placeholder="Ex: Setor Financeiro; Cozinha da Matriz; Evento de confraternização" required>
-            </div>
-
-            <div class="form-group">
-                <label for="quem">Quem está envolvido na situação? (Cargos, nomes, áreas, ou qualquer identificação possível) *</label>
-                <input type="text" id="quem" name="quem" placeholder="Ex: O gerente da área comercial; A secretária do setor X; O colega João" required>
-            </div>
-
-            <div class="form-group">
-                <label for="descricao">Descreva a situação com o máximo de detalhes que puder. (O que aconteceu, como, com quem, consequências) *</label>
-                <textarea id="descricao" name="descricao" required placeholder="Forneça o máximo de informações possíveis para que possamos investigar. Seja claro e objetivo."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>A situação ainda está ocorrendo? *</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="radio" id="frequencia1" name="frequencia" value="Sim, está acontecendo neste momento" required><label for="frequencia1">Sim, está acontecendo neste momento</label></div>
-                    <div class="checkbox-item"><input type="radio" id="frequencia2" name="frequencia" value="Não, já aconteceu e parou"><label for="frequencia2">Não, já aconteceu e parou</label></div>
-                    <div class="checkbox-item"><input type="radio" id="frequencia3" name="frequencia" value="Acontece com frequência"><label for="frequencia3">Acontece com frequência</label></div>
-                    <div class="checkbox-item"><input type="radio" id="frequencia4" name="frequencia" value="Não tenho certeza"><label for="frequencia4">Não tenho certeza</label></div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: *</label>
-                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx" required>
-            </div>
-
-            <div class="form-group">
-                <label for="comentario_final">Deseja deixar alguma recomendação ou comentário final? (Opcional)</label>
-                <textarea id="comentario_final" name="comentario_final" placeholder="Alguma observação adicional, sugestão de melhoria ou preocupação."></textarea>
-            </div>
-
-            <button type="submit">Enviar Denúncia de Forma Anônima</button>
-        </form>
-
-        <footer>
-            <p>Atenciosamente,</p>
-            <p>Formédica Farmácia de Manipulação</p>
-            <p>Sua identidade é nossa prioridade. Todos os dados são tratados com o mais absoluto sigilo.</p>
-        </footer>
-    </div>
-
-    <div id="successModal" class="modal">
-        <div class="modal-content-small">
-            <span class="icon-check">✅</span>
-            <h2>Denúncia Enviada com Sucesso!</h2>
-            <p>Agradecemos a sua contribuição. Sua denúncia foi registrada e será analisada com a máxima confidencialidade e imparcialidade.</p>
-            <p>Reforçamos: Sua identidade está completamente protegida. Este sistema garante o seu anonimato.</p>
-            <p>Assim que possível daremos um retorno a você!</p>
-            <button onclick="closeSuccessModal()" class="btn-header-policy" style="background-color: var(--cor-principal); color: white; margin-top: 15px;">Fechar</button>
-        </div>
-    </div>
-
-    <div id="policyModal" class="modal">
-        <div class="modal-content-large">
-            <div class="modal-header">
-                <h2>Política do Canal de Denúncias Formédica</h2>
-                <span class="close" id="closePolicyBtn">&times;</span>
-            </div>
-            
-            <iframe id="policyIframe" class="policy-viewer" src="Politica_Canal_Denuncias_Formedica.pdf" frameborder="0">
-                <p>Seu navegador não suporta iframes. <a href="Politica_Canal_Denuncias_Formedica.pdf" target="_blank">Clique aqui para baixar a política.</a></p>
-            </iframe>
-        </div>
-    </div>
-
-    <script>
-        // --- VARIÁVEIS DE DOM ---
-        var policyModal = document.getElementById("policyModal");
-        var openPolicyBtn = document.getElementById("openPolicyBtn");
-        var closePolicyBtn = document.getElementById("closePolicyBtn");
-        var successModal = document.getElementById("successModal");
-        var denunciaForm = document.getElementById("denunciaForm");
-
-        var outroCheckbox = document.getElementById('tipo9_outro');
-        var outroTipoField = document.getElementById('outroTipoField');
-        var outroTipoInput = document.getElementById('outro_tipo');
-        var checkboxError = document.getElementById('checkboxError');
-        var emailDestinoHidden = document.getElementById('emailDestinoHidden'); // ✅ Novo elemento DOM
+        <div class="intro-text">
+            <p>Este formulário é um canal exclusivo e seguro para que você possa relatar, de forma anônima e confidencial, qualquer situação que viole princípios éticos, legais ou as diretrizes da empresa.</p>
+            <p>Você pode utilizar este espaço para reportar, por exemplo:</p>
+            <ul>
+                <li>Assédio moral ou sexual</li>
+                <li>Discriminação</li>
+                <li>Irregularidades financeiras</li>
+                <li>Abusos de autoridade</li>
+                <li>Condutas inadequadas no ambiente de trabalho</li>
+            </ul>
+        </div>
         
-        // ✅ NOVO: VARIÁVEL DO E-MAIL
-        const EMAIL_DESTINO = "automacaoformedica@gmail.com"; // <-- **COLOQUE O E-MAIL 'X' AQUI**
+        <div class="anonymous-note">
+            <label>🔒 Anonimato garantido:</label>
+            <p>Este formulário não registra e-mails, nomes ou endereços IP. Sua identidade estará completamente protegida.</p>
+        </div>
+        
+        <div class="intro-text disclaimer">
+             <label>💬 Importante:</label>
+             <p>Descreva a situação com o máximo de detalhes possíveis (data, local, pessoas envolvidas, etc.) para facilitar a análise e a tomada de providências. Todas as denúncias serão avaliadas com responsabilidade, imparcialidade e sigilo.</p>
+             <p>A sua voz é fundamental para um ambiente mais ético, seguro e respeitoso. Denuncie com confiança. Aqui, você será ouvido.</p>
+        </div>
 
-        // --- CONFIGURAÇÃO DO WEBHOOK ---
-        const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **VERIFIQUE SUA URL**
 
-        // --- LÓGICA DE PREENCHIMENTO DO CAMPO OCULTO ---
-        // Preenche o valor do campo oculto no carregamento da página
-        document.addEventListener('DOMContentLoaded', function() {
-            emailDestinoHidden.value = EMAIL_DESTINO;
+        <form id="denunciaForm">
+            <div class="form-group">
+                <label for="sede">Qual a sua sede? *</label>
+                <select id="sede" name="sede" required>
+                    <option value="">Selecione...</option>
+                    <option value="matriz">Matriz - Batel</option>
+                    <option value="sede2">Sede 2 - Santa Quitéria</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="local_ocorrido">Local do Ocorrido *</label>
+                <select id="local_ocorrido" name="local_ocorrido" required>
+                    <option value="">Selecione...</option>
+                    <option value="matriz">Matriz - Batel</option>
+                    <option value="sede2">Sede 2 - Santa Quitéria</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Qual é o tipo de situação que você deseja relatar? (Selecione pelo menos uma) *</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="tipo1" name="tipo[]" value="Assédio moral"><label for="tipo1">Assédio moral</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo2" name="tipo[]" value="Assédio sexual"><label for="tipo2">Assédio sexual</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo3" name="tipo[]" value="Discriminação"><label for="tipo3">Discriminação (raça, gênero, orientação sexual etc.)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo4" name="tipo[]" value="Corrupção ou fraude"><label for="tipo4">Corrupção ou fraude</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo5" name="tipo[]" value="Desvio de conduta ética"><label for="tipo5">Desvio de conduta ética</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo6" name="tipo[]" value="Abuso de autoridade"><label for="tipo6">Abuso de autoridade</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo7" name="tipo[]" value="Irregularidade trabalhista"><label for="tipo7">Irregularidade trabalhista</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo8" name="tipo[]" value="Uso indevido de recursos da empresa"><label for="tipo8">Uso indevido de recursos da empresa</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo9_outro" name="tipo[]" value="Outro"><label for="tipo9_outro">Outro</label></div>
+                </div>
+                 <div id="checkboxError" class="error-message">Por favor, selecione pelo menos um tipo de situação para a denúncia.</div>
+                <div class="form-group" id="outroTipoField" style="display:none; margin-top: 15px;">
+                    <label for="outro_tipo">Qual tipo de situação?</label>
+                    <input type="text" id="outro_tipo" name="outro_tipo" placeholder="Descreva o tipo de situação.">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="quando">Quando a situação ocorreu? (Data aproximada ou período) *</label>
+                <input type="text" id="quando" name="quando" placeholder="Ex: Março de 2025; Semana passada; Dia 15/05/2025" required>
+            </div>
+
+            <div class="form-group">
+                <label for="onde">Onde a situação aconteceu? (Setor, local físico ou evento, por exemplo) *</label>
+                <input type="text" id="onde" name="onde" placeholder="Ex: Setor Financeiro; Cozinha da Matriz; Evento de confraternização" required>
+            </div>
+
+            <div class="form-group">
+                <label for="quem">Quem está envolvido na situação? (Cargos, nomes, áreas, ou qualquer identificação possível) *</label>
+                <input type="text" id="quem" name="quem" placeholder="Ex: O gerente da área comercial; A secretária do setor X; O colega João" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descreva a situação com o máximo de detalhes que puder. (O que aconteceu, como, com quem, consequências) *</label>
+                <textarea id="descricao" name="descricao" required placeholder="Forneça o máximo de informações possíveis para que possamos investigar. Seja claro e objetivo."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>A situação ainda está ocorrendo? *</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="radio" id="frequencia1" name="frequencia" value="Sim, está acontecendo neste momento" required><label for="frequencia1">Sim, está acontecendo neste momento</label></div>
+                    <div class="checkbox-item"><input type="radio" id="frequencia2" name="frequencia" value="Não, já aconteceu e parou"><label for="frequencia2">Não, já aconteceu e parou</label></div>
+                    <div class="checkbox-item"><input type="radio" id="frequencia3" name="frequencia" value="Acontece com frequência"><label for="frequencia3">Acontece com frequência</label></div>
+                    <div class="checkbox-item"><input type="radio" id="frequencia4" name="frequencia" value="Não tenho certeza"><label for="frequencia4">Não tenho certeza</label></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: *</label>
+                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx" required>
+            </div>
+
+            <div class="form-group">
+                <label for="comentario_final">Deseja deixar alguma recomendação ou comentário final? (Opcional)</label>
+                <textarea id="comentario_final" name="comentario_final" placeholder="Alguma observação adicional, sugestão de melhoria ou preocupação."></textarea>
+            </div>
+
+            <button type="submit">Enviar Denúncia de Forma Anônima</button>
+        </form>
+
+        <footer>
+            <p>Atenciosamente,</p>
+            <p>Formédica Farmácia de Manipulação</p>
+            <p>Sua identidade é nossa prioridade. Todos os dados são tratados com o mais absoluto sigilo.</p>
+        </footer>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content-small">
+            <span class="icon-check">✅</span>
+            <h2>Denúncia Enviada com Sucesso!</h2>
+            <p>Agradecemos a sua contribuição. Sua denúncia foi registrada e será analisada com a máxima confidencialidade e imparcialidade.</p>
+            <p>Reforçamos: Sua identidade está completamente protegida. Este sistema garante o seu anonimato.</p>
+            <p>Assim que possível daremos um retorno a você!</p>
+            <button onclick="closeSuccessModal()" class="btn-header-policy" style="background-color: var(--cor-principal); color: white; margin-top: 15px;">Fechar</button>
+        </div>
+    </div>
+
+    <div id="policyModal" class="modal">
+        <div class="modal-content-large">
+            <div class="modal-header">
+                <h2>Política do Canal de Denúncias Formédica</h2>
+                <span class="close" id="closePolicyBtn">&times;</span>
+            </div>
+            
+            <iframe id="policyIframe" class="policy-viewer" src="Politica_Canal_Denuncias_Formedica.pdf" frameborder="0">
+                <p>Seu navegador não suporta iframes. <a href="Politica_Canal_Denuncias_Formedica.pdf" target="_blank">Clique aqui para baixar a política.</a></p>
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        // --- VARIÁVEIS DE DOM ---
+        var policyModal = document.getElementById("policyModal");
+        var openPolicyBtn = document.getElementById("openPolicyBtn");
+        var closePolicyBtn = document.getElementById("closePolicyBtn");
+        var successModal = document.getElementById("successModal");
+        var denunciaForm = document.getElementById("denunciaForm");
+
+        var outroCheckbox = document.getElementById('tipo9_outro');
+        var outroTipoField = document.getElementById('outroTipoField');
+        var outroTipoInput = document.getElementById('outro_tipo');
+        var checkboxError = document.getElementById('checkboxError');
+
+        // --- CONFIGURAÇÃO DO WEBHOOK ---
+        const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **VERIFIQUE SUA URL**
+
+        // --- LÓGICA DAS MODAIS ---
+        openPolicyBtn.onclick = function() {
+          policyModal.style.display = "block";
+        }
+        
+        closePolicyBtn.onclick = function() {
+          policyModal.style.display = "none";
+        }
+        
+        window.onclick = function(event) {
+          if (event.target == policyModal) {
+            policyModal.style.display = "none";
+          }
+        }
+        
+        function closeSuccessModal() {
+            successModal.style.display = "none";
+        }
+
+
+        // --- LÓGICA DO CAMPO DINÂMICO "OUTRO" ---
+        outroCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                outroTipoField.style.display = 'block';
+                outroTipoInput.required = true;
+            } else {
+                outroTipoField.style.display = 'none';
+                outroTipoInput.required = false;
+                outroTipoInput.value = '';
+            }
+            // Tenta esconder o erro de checkbox se algo foi marcado
+            if (document.querySelector('input[name="tipo[]"]:checked')) {
+                checkboxError.style.display = 'none';
+            }
         });
 
-        // --- LÓGICA DAS MODAIS ---
-        openPolicyBtn.onclick = function() {
-          policyModal.style.display = "block";
-        }
-        
-        closePolicyBtn.onclick = function() {
-          policyModal.style.display = "none";
-        }
-        
-        window.onclick = function(event) {
-          if (event.target == policyModal) {
-            policyModal.style.display = "none";
-          }
-        }
-        
-        function closeSuccessModal() {
-            successModal.style.display = "none";
-        }
+        // Adiciona um listener para esconder o erro ao marcar qualquer checkbox
+        const tipoCheckboxes = document.querySelectorAll('input[name="tipo[]"]');
+        tipoCheckboxes.forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (document.querySelector('input[name="tipo[]"]:checked')) {
+                    checkboxError.style.display = 'none';
+                }
+            });
+        });
+
+        // --------------------------------------------------------
+        // FUNÇÃO DE VALIDAÇÃO CUSTOMIZADA PARA OS CHECKBOXES
+        // --------------------------------------------------------
+        function validateForm() {
+            let isChecked = false;
+            // Verifica se pelo menos um checkbox "tipo[]" está marcado
+            if (document.querySelector('input[name="tipo[]"]:checked')) {
+                isChecked = true;
+            }
+
+            // Se nenhum estiver marcado, exibe o erro e retorna false
+            if (!isChecked) {
+                checkboxError.style.display = 'block';
+                // Rola a tela até o campo de erro para que o usuário veja a mensagem
+                checkboxError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return false;
+            }
+
+            // Se a validação customizada passar, esconde o erro
+            checkboxError.style.display = 'none';
+            return true;
+        }
 
 
-        // --- LÓGICA DO CAMPO DINÂMICO "OUTRO" ---
-        outroCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                outroTipoField.style.display = 'block';
-                outroTipoInput.required = true;
-            } else {
-                outroTipoField.style.display = 'none';
-                outroTipoInput.required = false;
-                outroTipoInput.value = '';
-            }
-            // Tenta esconder o erro de checkbox se algo foi marcado
-            if (document.querySelector('input[name="tipo[]"]:checked')) {
-                checkboxError.style.display = 'none';
-            }
-        });
+        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET ---
+        denunciaForm.addEventListener('submit', async function(event) {
+            // Primeiro, chama a validação customizada
+            if (!validateForm()) {
+                event.preventDefault();
+                return;
+            }
 
-        // Adiciona um listener para esconder o erro ao marcar qualquer checkbox
-        const tipoCheckboxes = document.querySelectorAll('input[name="tipo[]"]');
-        tipoCheckboxes.forEach(cb => {
-            cb.addEventListener('change', function() {
-                if (document.querySelector('input[name="tipo[]"]:checked')) {
-                    checkboxError.style.display = 'none';
-                }
-            });
-        });
+            // Se a validação customizada passar, a validação nativa do HTML (para os campos com 'required') será executada
+            // Se a validação nativa falhar, o evento.preventDefault() não terá sido chamado e o formulário será impedido de enviar.
+            
+            // Se o navegador chegou aqui, é porque a validação nativa e a customizada passaram.
+            event.preventDefault(); 
+            const formData = new FormData(denunciaForm);
+            const outroTipo = formData.get('outro_tipo');
+            const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
 
-        // --------------------------------------------------------
-        // FUNÇÃO DE VALIDAÇÃO CUSTOMIZADA PARA OS CHECKBOXES
-        // --------------------------------------------------------
-        function validateForm() {
-            let isChecked = false;
-            // Verifica se pelo menos um checkbox "tipo[]" está marcado
-            if (document.querySelector('input[name="tipo[]"]:checked')) {
-                isChecked = true;
-            }
-
-            // Se nenhum estiver marcado, exibe o erro e retorna false
-            if (!isChecked) {
-                checkboxError.style.display = 'block';
-                // Rola a tela até o campo de erro para que o usuário veja a mensagem
-                checkboxError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                return false;
-            }
-
-            // Se a validação customizada passar, esconde o erro
-            checkboxError.style.display = 'none';
-            return true;
-        }
+            // Processamento do campo 'Outro'
+            const tiposSelecionados = formData.getAll('tipo[]');
+            if (tiposSelecionados.includes("Outro") && outroTipo) {
+                 formData.delete('tipo[]');
+                 tiposSelecionados.forEach(tipo => {
+                     if(tipo === "Outro") {
+                         formData.append('tipo[]', `Outro: ${outroTipo}`);
+                     } else {
+                         formData.append('tipo[]', tipo);
+                     }
+                 });
+            }
+            formData.delete('outro_tipo'); // Limpa o campo extra
 
 
-        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET ---
-        denunciaForm.addEventListener('submit', async function(event) {
-            // Primeiro, chama a validação customizada
-            if (!validateForm()) {
-                event.preventDefault();
-                return;
-            }
+            try {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Enviando...';
 
-            // Se a validação customizada passar, a validação nativa do HTML (para os campos com 'required') será executada
-            // Se a validação nativa falhar, o evento.preventDefault() não terá sido chamado e o formulário será impedido de enviar.
-            
-            // Se o navegador chegou aqui, é porque a validação nativa e a customizada passaram.
-            event.preventDefault(); 
-            const formData = new FormData(denunciaForm);
-            const outroTipo = formData.get('outro_tipo');
-            const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    body: formData
+                });
 
-            // Processamento do campo 'Outro'
-            const tiposSelecionados = formData.getAll('tipo[]');
-            if (tiposSelecionados.includes("Outro") && outroTipo) {
-                 formData.delete('tipo[]');
-                 tiposSelecionados.forEach(tipo => {
-                     if(tipo === "Outro") {
-                         formData.append('tipo[]', `Outro: ${outroTipo}`);
-                     } else {
-                         formData.append('tipo[]', tipo);
-                     }
-                 });
-            }
-            formData.delete('outro_tipo'); // Limpa o campo extra
+                // Se o servidor retornar um status 2xx, o envio foi bem-sucedido.
+                if (response.ok) { 
+                    console.log('Denúncia enviada com sucesso (Status 2xx).');
+                    // SUCESSO: MOSTRAR MODAL E RESETAR FORM
+                    denunciaForm.reset();
+                    outroTipoField.style.display = 'none'; 
+                    successModal.style.display = "block";
+                } else {
+                    // ERRO NO WEBHOOK (status 4xx ou 5xx). Forçamos o sucesso do frontend.
+                    console.error('Webhook falhou (código de erro HTTP):', response.status, response.statusText);
+                    denunciaForm.reset();
+                    outroTipoField.style.display = 'none';
+                    successModal.style.display = "block";
+                }
 
-
-            try {
-                submitButton.disabled = true;
-                submitButton.textContent = 'Enviando...';
-
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    body: formData // ✅ O formData agora inclui o campo 'email_destino'
-                });
-
-                // Se o servidor retornar um status 2xx, o envio foi bem-sucedido.
-                if (response.ok) { 
-                    console.log('Denúncia enviada com sucesso (Status 2xx).');
-                    // SUCESSO: MOSTRAR MODAL E RESETAR FORM
-                    denunciaForm.reset();
-                    outroTipoField.style.display = 'none'; 
-                    successModal.style.display = "block";
-                } else {
-                    // ERRO NO WEBHOOK (status 4xx ou 5xx). Forçamos o sucesso do frontend.
-                    console.error('Webhook falhou (código de erro HTTP):', response.status, response.statusText);
-                    denunciaForm.reset();
-                    outroTipoField.style.display = 'none';
-                    successModal.style.display = "block";
-                }
-
-            } catch (error) {
-                // ERRO DE REDE/CONEXÃO. Forçamos o sucesso do frontend.
-                console.error('Falha na requisição de rede. Denúncia provavelmente enviada, mas sem confirmação:', error);
-                denunciaForm.reset();
-                outroTipoField.style.display = 'none';
-                successModal.style.display = "block";
-            } finally {
-                // Reabilita o botão
-                submitButton.disabled = false;
-                submitButton.textContent = 'Enviar Denúncia de Forma Anônima';
-            }
-        });
-    </script>
+            } catch (error) {
+                // ERRO DE REDE/CONEXÃO. Forçamos o sucesso do frontend.
+                console.error('Falha na requisição de rede. Denúncia provavelmente enviada, mas sem confirmação:', error);
+                denunciaForm.reset();
+                outroTipoField.style.display = 'none';
+                successModal.style.display = "block";
+            } finally {
+                // Reabilita o botão
+                submitButton.disabled = false;
+                submitButton.textContent = 'Enviar Denúncia de Forma Anônima';
+            }
+        });
+    </script>
 </body>
 </html>
