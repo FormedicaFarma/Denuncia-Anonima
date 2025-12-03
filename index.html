@@ -15,6 +15,7 @@
             --cor-principal: #416BA7; /* Azul Principal */
             --cor-secundaria: #345587; /* Azul escuro para hover */
             --cor-fundo-suave: #e6eef8; /* Fundo suave, levemente azulado */
+            --cor-erro: #dc3545; /* Vermelho para mensagens de erro */
         }
 
         body {
@@ -184,6 +185,19 @@
             transform: scale(1.2);
             flex-shrink: 0; 
         }
+
+        /* Estilo para a mensagem de erro */
+        .error-message {
+            color: var(--cor-erro);
+            background-color: #f8d7da;
+            border: 1px solid var(--cor-erro);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            display: none; /* Inicia oculto */
+        }
+
 
         /* Estilo para o botão de envio */
         button[type="submit"] {
@@ -388,7 +402,7 @@
         <form id="denunciaForm">
             <div class="form-group">
                 <label for="sede">Qual a sua sede? *</label>
-                <select id="sede" name="sede" **required**>
+                <select id="sede" name="sede" required>
                     <option value="">Selecione...</option>
                     <option value="matriz">Matriz - Batel</option>
                     <option value="sede2">Sede 2 - Santa Quitéria</option>
@@ -397,7 +411,7 @@
 
             <div class="form-group">
                 <label for="local_ocorrido">Local do Ocorrido *</label>
-                <select id="local_ocorrido" name="local_ocorrido" **required**>
+                <select id="local_ocorrido" name="local_ocorrido" required>
                     <option value="">Selecione...</option>
                     <option value="matriz">Matriz - Batel</option>
                     <option value="sede2">Sede 2 - Santa Quitéria</option>
@@ -405,7 +419,7 @@
             </div>
 
             <div class="form-group">
-                <label>Qual é o tipo de situação que você deseja relatar? (Pode selecionar mais de uma) *</label>
+                <label>Qual é o tipo de situação que você deseja relatar? (Selecione pelo menos uma) *</label>
                 <div class="checkbox-group">
                     <div class="checkbox-item"><input type="checkbox" id="tipo1" name="tipo[]" value="Assédio moral"><label for="tipo1">Assédio moral</label></div>
                     <div class="checkbox-item"><input type="checkbox" id="tipo2" name="tipo[]" value="Assédio sexual"><label for="tipo2">Assédio sexual</label></div>
@@ -417,6 +431,7 @@
                     <div class="checkbox-item"><input type="checkbox" id="tipo8" name="tipo[]" value="Uso indevido de recursos da empresa"><label for="tipo8">Uso indevido de recursos da empresa</label></div>
                     <div class="checkbox-item"><input type="checkbox" id="tipo9_outro" name="tipo[]" value="Outro"><label for="tipo9_outro">Outro</label></div>
                 </div>
+                 <div id="checkboxError" class="error-message">Por favor, selecione pelo menos um tipo de situação para a denúncia.</div>
                 <div class="form-group" id="outroTipoField" style="display:none; margin-top: 15px;">
                     <label for="outro_tipo">Qual tipo de situação?</label>
                     <input type="text" id="outro_tipo" name="outro_tipo" placeholder="Descreva o tipo de situação.">
@@ -425,28 +440,28 @@
 
             <div class="form-group">
                 <label for="quando">Quando a situação ocorreu? (Data aproximada ou período) *</label>
-                <input type="text" id="quando" name="quando" placeholder="Ex: Março de 2025; Semana passada; Dia 15/05/2025" **required**>
+                <input type="text" id="quando" name="quando" placeholder="Ex: Março de 2025; Semana passada; Dia 15/05/2025" required>
             </div>
 
             <div class="form-group">
                 <label for="onde">Onde a situação aconteceu? (Setor, local físico ou evento, por exemplo) *</label>
-                <input type="text" id="onde" name="onde" placeholder="Ex: Setor Financeiro; Cozinha da Matriz; Evento de confraternização" **required**>
+                <input type="text" id="onde" name="onde" placeholder="Ex: Setor Financeiro; Cozinha da Matriz; Evento de confraternização" required>
             </div>
 
             <div class="form-group">
                 <label for="quem">Quem está envolvido na situação? (Cargos, nomes, áreas, ou qualquer identificação possível) *</label>
-                <input type="text" id="quem" name="quem" placeholder="Ex: O gerente da área comercial; A secretária do setor X; O colega João" **required**>
+                <input type="text" id="quem" name="quem" placeholder="Ex: O gerente da área comercial; A secretária do setor X; O colega João" required>
             </div>
 
             <div class="form-group">
                 <label for="descricao">Descreva a situação com o máximo de detalhes que puder. (O que aconteceu, como, com quem, consequências) *</label>
-                <textarea id="descricao" name="descricao" **required** placeholder="Forneça o máximo de informações possíveis para que possamos investigar. Seja claro e objetivo."></textarea>
+                <textarea id="descricao" name="descricao" required placeholder="Forneça o máximo de informações possíveis para que possamos investigar. Seja claro e objetivo."></textarea>
             </div>
 
             <div class="form-group">
                 <label>A situação ainda está ocorrendo? *</label>
                 <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="radio" id="frequencia1" name="frequencia" value="Sim, está acontecendo neste momento" **required**><label for="frequencia1">Sim, está acontecendo neste momento</label></div>
+                    <div class="checkbox-item"><input type="radio" id="frequencia1" name="frequencia" value="Sim, está acontecendo neste momento" required><label for="frequencia1">Sim, está acontecendo neste momento</label></div>
                     <div class="checkbox-item"><input type="radio" id="frequencia2" name="frequencia" value="Não, já aconteceu e parou"><label for="frequencia2">Não, já aconteceu e parou</label></div>
                     <div class="checkbox-item"><input type="radio" id="frequencia3" name="frequencia" value="Acontece com frequência"><label for="frequencia3">Acontece com frequência</label></div>
                     <div class="checkbox-item"><input type="radio" id="frequencia4" name="frequencia" value="Não tenho certeza"><label for="frequencia4">Não tenho certeza</label></div>
@@ -455,7 +470,7 @@
 
             <div class="form-group">
                 <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: *</label>
-                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx" **required**>
+                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx" required>
             </div>
 
             <div class="form-group">
@@ -479,7 +494,7 @@
             <h2>Denúncia Enviada com Sucesso!</h2>
             <p>Agradecemos a sua contribuição. Sua denúncia foi registrada e será analisada com a máxima **confidencialidade e imparcialidade**.</p>
             <p>Reforçamos: Sua identidade está completamente protegida. **Este sistema garante o seu anonimato.**</p>
-            <p>Assim que possivel daremos um retorno a você!</p>
+            <p>Assim que possível daremos um retorno a você!</p>
             <button onclick="closeSuccessModal()" class="btn-header-policy" style="background-color: var(--cor-principal); color: white; margin-top: 15px;">Fechar</button>
         </div>
     </div>
@@ -508,9 +523,10 @@
         var outroCheckbox = document.getElementById('tipo9_outro');
         var outroTipoField = document.getElementById('outroTipoField');
         var outroTipoInput = document.getElementById('outro_tipo');
+        var checkboxError = document.getElementById('checkboxError');
 
         // --- CONFIGURAÇÃO DO WEBHOOK ---
-        const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **ATENÇÃO: VERIFIQUE SUA URL**
+        const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **VERIFIQUE SUA URL**
 
         // --- LÓGICA DAS MODAIS ---
         openPolicyBtn.onclick = function() {
@@ -542,13 +558,59 @@
                 outroTipoInput.required = false;
                 outroTipoInput.value = '';
             }
+            // Tenta esconder o erro de checkbox se algo foi marcado
+            if (document.querySelector('input[name="tipo[]"]:checked')) {
+                checkboxError.style.display = 'none';
+            }
         });
 
+        // Adiciona um listener para esconder o erro ao marcar qualquer checkbox
+        const tipoCheckboxes = document.querySelectorAll('input[name="tipo[]"]');
+        tipoCheckboxes.forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (document.querySelector('input[name="tipo[]"]:checked')) {
+                    checkboxError.style.display = 'none';
+                }
+            });
+        });
 
-        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET (SEM ALERTAS DE ERRO) ---
+        // --------------------------------------------------------
+        // FUNÇÃO DE VALIDAÇÃO CUSTOMIZADA PARA OS CHECKBOXES
+        // --------------------------------------------------------
+        function validateForm() {
+            let isChecked = false;
+            // Verifica se pelo menos um checkbox "tipo[]" está marcado
+            if (document.querySelector('input[name="tipo[]"]:checked')) {
+                isChecked = true;
+            }
+
+            // Se nenhum estiver marcado, exibe o erro e retorna false
+            if (!isChecked) {
+                checkboxError.style.display = 'block';
+                // Rola a tela até o campo de erro para que o usuário veja a mensagem
+                checkboxError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return false;
+            }
+
+            // Se a validação customizada passar, esconde o erro
+            checkboxError.style.display = 'none';
+            return true;
+        }
+
+
+        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET ---
         denunciaForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); 
+            // Primeiro, chama a validação customizada
+            if (!validateForm()) {
+                event.preventDefault();
+                return;
+            }
 
+            // Se a validação customizada passar, a validação nativa do HTML (para os campos com 'required') será executada
+            // Se a validação nativa falhar, o evento.preventDefault() não terá sido chamado e o formulário será impedido de enviar.
+            
+            // Se o navegador chegou aqui, é porque a validação nativa e a customizada passaram.
+            event.preventDefault(); 
             const formData = new FormData(denunciaForm);
             const outroTipo = formData.get('outro_tipo');
             const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
@@ -572,7 +634,6 @@
                 submitButton.disabled = true;
                 submitButton.textContent = 'Enviando...';
 
-                // Usando FormData no body sem Content-Type para evitar o preflight OPTIONS
                 const response = await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     body: formData
@@ -586,19 +647,16 @@
                     outroTipoField.style.display = 'none'; 
                     successModal.style.display = "block";
                 } else {
-                    // ERRO NO WEBHOOK (status 4xx ou 5xx). Logamos o erro, mas forçamos o sucesso no frontend.
+                    // ERRO NO WEBHOOK (status 4xx ou 5xx). Forçamos o sucesso do frontend.
                     console.error('Webhook falhou (código de erro HTTP):', response.status, response.statusText);
-                    // Forçar o sucesso do frontend para garantir o anonimato e a experiência do usuário
                     denunciaForm.reset();
                     outroTipoField.style.display = 'none';
                     successModal.style.display = "block";
                 }
 
             } catch (error) {
-                // ERRO DE REDE/CONEXÃO. Logamos o erro, mas forçamos o sucesso no frontend.
+                // ERRO DE REDE/CONEXÃO. Forçamos o sucesso do frontend.
                 console.error('Falha na requisição de rede. Denúncia provavelmente enviada, mas sem confirmação:', error);
-                
-                // Forçamos o sucesso do frontend para garantir o anonimato e a experiência do usuário
                 denunciaForm.reset();
                 outroTipoField.style.display = 'none';
                 successModal.style.display = "block";
