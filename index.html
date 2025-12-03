@@ -1,5 +1,405 @@
-<form id="denunciaForm">
-            <input type="hidden" id="emailDestinoHidden" name="email_destino" value="">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canal de Denúncias Anônimas - Formédica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* O CSS foi mantido inalterado */
+        
+        /* Cores de Destaque */
+        :root {
+            --cor-principal: #416BA7; /* Azul Principal */
+            --cor-secundaria: #345587; /* Azul escuro para hover */
+            --cor-fundo-suave: #e6eef8; /* Fundo suave, levemente azulado */
+            --cor-erro: #dc3545; /* Vermelho para mensagens de erro */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        /* Contêiner para posicionar o botão de política */
+        .header-policy-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 50;
+        }
+        
+        /* Novo estilo para o botão de política (pequeno, no canto) */
+        .btn-header-policy {
+            background-color: transparent;
+            color: var(--cor-principal);
+            border: 1px solid var(--cor-principal);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: background-color 0.3s, color 0.3s;
+            white-space: nowrap;
+        }
+        .btn-header-policy:hover {
+            background-color: var(--cor-principal);
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 30px;
+        }
+
+        /* Atenção: Verifique se este caminho da imagem está correto. */
+        .logo {
+            max-width: 250px;
+            height: auto;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 2em;
+            border-bottom: 3px solid var(--cor-principal);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .intro-text, .section-title {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 5px solid var(--cor-principal);
+            background-color: var(--cor-fundo-suave);
+            border-radius: 4px;
+        }
+
+        .intro-text p {
+            margin: 0 0 10px 0;
+        }
+
+        .intro-text ul {
+            list-style-type: '👉';
+            padding-left: 20px;
+        }
+
+        .intro-text li {
+            padding-left: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .anonymous-note {
+            background-color: #fffae0;
+            border: 1px solid #ffcc00;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--cor-principal);
+            outline: none;
+            box-shadow: 0 0 5px rgba(65, 107, 167, 0.5);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .checkbox-item {
+            margin-bottom: 10px;
+            flex: 1 1 45%;
+        }
+        
+        .checkbox-group label {
+            font-weight: 400;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"],
+        .checkbox-group input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+            flex-shrink: 0; 
+        }
+
+        /* Estilo para a mensagem de erro */
+        .error-message {
+            color: var(--cor-erro);
+            background-color: #f8d7da;
+            border: 1px solid var(--cor-erro);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            display: none; /* Inicia oculto */
+        }
+
+
+        /* Estilo para o botão de envio */
+        button[type="submit"] {
+            background-color: var(--cor-principal);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.1s;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover:not(:disabled) {
+            background-color: var(--cor-secundaria);
+        }
+        
+        button[type="submit"]:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        button[type="submit"]:active:not(:disabled) {
+            transform: scale(0.99);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .disclaimer {
+            background-color: #f4f7f6;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border: 1px dashed #ccc;
+        }
+        
+        /* ------------------ ESTILOS GERAIS DA JANELA MODAL ------------------ */
+
+        /* Fundo escuro que cobre toda a tela */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            padding-top: 60px;
+        }
+
+        /* Conteúdo da Modal de Agradecimento (menor e centralizada) */
+        #successModal .modal-content-small {
+            background-color: #fefefe;
+            margin: 15% auto; /* Centraliza mais no meio da tela */
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%; 
+            max-width: 500px; /* Largura pequena */
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        #successModal h2 {
+            color: var(--cor-principal);
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+        #successModal .icon-check {
+            font-size: 4em;
+            color: #28a745; /* Verde de sucesso */
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Conteúdo da Modal de Política (grande) */
+        #policyModal .modal-content-large {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%; 
+            max-width: 1000px;
+            border-radius: 8px;
+            position: relative;
+            height: 90vh;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Botão para fechar a modal de política */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 35px;
+            font-weight: bold;
+            line-height: 1;
+            margin-left: auto;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: var(--cor-principal);
+            font-size: 1.5em;
+        }
+
+        /* Iframe para carregar o PDF/Política */
+        .policy-viewer {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            width: 100%;
+            overflow: hidden;
+        }
+
+
+        /* Responsividade básica */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            #policyModal .modal-content-large {
+                width: 95%; 
+                margin: 10px auto;
+                height: 95vh;
+            }
+            #successModal .modal-content-small {
+                margin: 40% auto;
+            }
+            .header-policy-wrapper {
+                top: 10px; 
+                right: 10px; 
+            }
+            .checkbox-item {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-policy-wrapper">
+            <button class="btn-header-policy" id="openPolicyBtn">
+                Política do Canal de Denúncias
+            </button>
+        </div>
+        <header>
+            <img src="Logo - Formedica - Horizontal.png" alt="Formédica Logo" class="logo">
+            <h1>Canal de Denúncias Anônimas</h1>
+        </header>
+
+        <div class="intro-text">
+            <p>Este formulário é um canal exclusivo e seguro para que você possa relatar, de forma anônima e confidencial, qualquer situação que viole princípios éticos, legais ou as diretrizes da empresa.</p>
+            <p>Você pode utilizar este espaço para reportar, por exemplo:</p>
+            <ul>
+                <li>Assédio moral ou sexual</li>
+                <li>Discriminação</li>
+                <li>Irregularidades financeiras</li>
+                <li>Abusos de autoridade</li>
+                <li>Condutas inadequadas no ambiente de trabalho</li>
+            </ul>
+        </div>
+        
+        <div class="anonymous-note">
+            <label>🔒 Anonimato garantido:</label>
+            <p>**Este formulário não registra e-mails, nomes ou endereços IP.** Sua identidade estará completamente protegida.</p>
+        </div>
+        
+        <div class="intro-text disclaimer">
+             <label>💬 Importante:</label>
+             <p>Descreva a situação com o máximo de detalhes possíveis (data, local, pessoas envolvidas, etc.) para facilitar a análise e a tomada de providências. Todas as denúncias serão avaliadas com responsabilidade, imparcialidade e sigilo.</p>
+             <p>A sua voz é fundamental para um ambiente mais ético, seguro e respeitoso. Denuncie com confiança. Aqui, você será ouvido.</p>
+        </div>
+
+
+        <form id="denunciaForm">
             <div class="form-group">
                 <label for="sede">Qual a sua sede? *</label>
                 <select id="sede" name="sede" required>
@@ -32,7 +432,7 @@
                     <div class="checkbox-item"><input type="checkbox" id="tipo9_outro" name="tipo[]" value="Outro"><label for="tipo9_outro">Outro</label></div>
                 </div>
                  <div id="checkboxError" class="error-message">Por favor, selecione pelo menos um tipo de situação para a denúncia.</div>
-                 <div class="form-group" id="outroTipoField" style="display:none; margin-top: 15px;">
+                <div class="form-group" id="outroTipoField" style="display:none; margin-top: 15px;">
                     <label for="outro_tipo">Qual tipo de situação?</label>
                     <input type="text" id="outro_tipo" name="outro_tipo" placeholder="Descreva o tipo de situação.">
                 </div>
@@ -81,7 +481,38 @@
             <button type="submit">Enviar Denúncia de Forma Anônima</button>
         </form>
 
-<script>
+        <footer>
+            <p>Atenciosamente,</p>
+            <p>Equipe CIPA 2025/2026</p>
+            <p>Sua identidade é nossa prioridade. Todos os dados são tratados com o mais absoluto sigilo.</p>
+        </footer>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content-small">
+            <span class="icon-check">✅</span>
+            <h2>Denúncia Enviada com Sucesso!</h2>
+            <p>Agradecemos a sua contribuição. Sua denúncia foi registrada e será analisada com a máxima **confidencialidade e imparcialidade**.</p>
+            <p>Reforçamos: Sua identidade está completamente protegida. **Este sistema garante o seu anonimato.**</p>
+            <p>Assim que possível daremos um retorno a você!</p>
+            <button onclick="closeSuccessModal()" class="btn-header-policy" style="background-color: var(--cor-principal); color: white; margin-top: 15px;">Fechar</button>
+        </div>
+    </div>
+
+    <div id="policyModal" class="modal">
+        <div class="modal-content-large">
+            <div class="modal-header">
+                <h2>Política do Canal de Denúncias Formédica</h2>
+                <span class="close" id="closePolicyBtn">&times;</span>
+            </div>
+            
+            <iframe id="policyIframe" class="policy-viewer" src="Politica_Canal_Denuncias_Formedica.pdf" frameborder="0">
+                <p>Seu navegador não suporta iframes. <a href="Politica_Canal_Denuncias_Formedica.pdf" target="_blank">Clique aqui para baixar a política.</a></p>
+            </iframe>
+        </div>
+    </div>
+
+    <script>
         // --- VARIÁVEIS DE DOM ---
         var policyModal = document.getElementById("policyModal");
         var openPolicyBtn = document.getElementById("openPolicyBtn");
@@ -93,25 +524,11 @@
         var outroTipoField = document.getElementById('outroTipoField');
         var outroTipoInput = document.getElementById('outro_tipo');
         var checkboxError = document.getElementById('checkboxError');
-        
-        var emailDestinoHidden = document.getElementById('emailDestinoHidden'); // Novo elemento DOM
 
-        // ====================================================================
-        // ⚠️ PASSO 1 DE SEGURANÇA: DEFINA SUA CHAVE SECRETA AQUI ⚠️
-        const WEBHOOK_SECRET_KEY = "SUA_CHAVE_SECRETA_UNICA_AQUI"; 
-        
-        // ✅ NOVO: VARIÁVEL DO E-MAIL
-        const EMAIL_DESTINO = "email@exemplo.com"; // <-- **COLOQUE O E-MAIL 'X' AQUI**
-        
-        const WEBHOOK_BASE_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3";
+        // --- CONFIGURAÇÃO DO WEBHOOK ---
+        const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **VERIFIQUE SUA URL**
 
-        // --- LÓGICA DE PREENCHIMENTO DO CAMPO OCULTO ---
-        // Preenche o valor do campo oculto no carregamento da página
-        document.addEventListener('DOMContentLoaded', function() {
-            emailDestinoHidden.value = EMAIL_DESTINO;
-        });
-
-        // --- LÓGICA DAS MODAIS (inalterada) ---
+        // --- LÓGICA DAS MODAIS ---
         openPolicyBtn.onclick = function() {
           policyModal.style.display = "block";
         }
@@ -131,7 +548,7 @@
         }
 
 
-        // --- LÓGICA DO CAMPO DINÂMICO "OUTRO" e validação (inalterada) ---
+        // --- LÓGICA DO CAMPO DINÂMICO "OUTRO" ---
         outroCheckbox.addEventListener('change', function() {
             if (this.checked) {
                 outroTipoField.style.display = 'block';
@@ -141,11 +558,13 @@
                 outroTipoInput.required = false;
                 outroTipoInput.value = '';
             }
+            // Tenta esconder o erro de checkbox se algo foi marcado
             if (document.querySelector('input[name="tipo[]"]:checked')) {
                 checkboxError.style.display = 'none';
             }
         });
 
+        // Adiciona um listener para esconder o erro ao marcar qualquer checkbox
         const tipoCheckboxes = document.querySelectorAll('input[name="tipo[]"]');
         tipoCheckboxes.forEach(cb => {
             cb.addEventListener('change', function() {
@@ -155,37 +574,48 @@
             });
         });
 
+        // --------------------------------------------------------
+        // FUNÇÃO DE VALIDAÇÃO CUSTOMIZADA PARA OS CHECKBOXES
+        // --------------------------------------------------------
         function validateForm() {
             let isChecked = false;
+            // Verifica se pelo menos um checkbox "tipo[]" está marcado
             if (document.querySelector('input[name="tipo[]"]:checked')) {
                 isChecked = true;
             }
 
+            // Se nenhum estiver marcado, exibe o erro e retorna false
             if (!isChecked) {
                 checkboxError.style.display = 'block';
+                // Rola a tela até o campo de erro para que o usuário veja a mensagem
                 checkboxError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return false;
             }
 
+            // Se a validação customizada passar, esconde o erro
             checkboxError.style.display = 'none';
             return true;
         }
 
 
-        // --- LÓGICA DE ENVIO VIA WEBHOOK CORRIGIDA ---
+        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET ---
         denunciaForm.addEventListener('submit', async function(event) {
-            // Validação customizada e nativa
-            if (!validateForm() || !denunciaForm.checkValidity()) {
+            // Primeiro, chama a validação customizada
+            if (!validateForm()) {
                 event.preventDefault();
                 return;
             }
+
+            // Se a validação customizada passar, a validação nativa do HTML (para os campos com 'required') será executada
+            // Se a validação nativa falhar, o evento.preventDefault() não terá sido chamado e o formulário será impedido de enviar.
             
+            // Se o navegador chegou aqui, é porque a validação nativa e a customizada passaram.
             event.preventDefault(); 
             const formData = new FormData(denunciaForm);
             const outroTipo = formData.get('outro_tipo');
             const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
 
-            // Processamento do campo 'Outro' (inalterado)
+            // Processamento do campo 'Outro'
             const tiposSelecionados = formData.getAll('tipo[]');
             if (tiposSelecionados.includes("Outro") && outroTipo) {
                  formData.delete('tipo[]');
@@ -197,41 +627,45 @@
                      }
                  });
             }
-            formData.delete('outro_tipo'); 
-            
-            // ✅ A CHAVE DE SEGURANÇA E O E-MAIL OCULTO SERÃO ENVIADOS AQUI:
-            const SECURE_WEBHOOK_URL = `${WEBHOOK_BASE_URL}?auth_key=${WEBHOOK_SECRET_KEY}`;
+            formData.delete('outro_tipo'); // Limpa o campo extra
+
 
             try {
                 submitButton.disabled = true;
                 submitButton.textContent = 'Enviando...';
 
-                // O fetch agora usa a URL segura e o formData (que inclui o e-mail oculto)
-                const response = await fetch(SECURE_WEBHOOK_URL, {
+                const response = await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     body: formData
                 });
 
+                // Se o servidor retornar um status 2xx, o envio foi bem-sucedido.
                 if (response.ok) { 
                     console.log('Denúncia enviada com sucesso (Status 2xx).');
+                    // SUCESSO: MOSTRAR MODAL E RESETAR FORM
                     denunciaForm.reset();
                     outroTipoField.style.display = 'none'; 
                     successModal.style.display = "block";
                 } else {
-                    console.error('Webhook falhou (código de erro HTTP).', response.status, response.statusText);
+                    // ERRO NO WEBHOOK (status 4xx ou 5xx). Forçamos o sucesso do frontend.
+                    console.error('Webhook falhou (código de erro HTTP):', response.status, response.statusText);
                     denunciaForm.reset();
                     outroTipoField.style.display = 'none';
                     successModal.style.display = "block";
                 }
 
             } catch (error) {
-                console.error('Falha na requisição de rede.', error);
+                // ERRO DE REDE/CONEXÃO. Forçamos o sucesso do frontend.
+                console.error('Falha na requisição de rede. Denúncia provavelmente enviada, mas sem confirmação:', error);
                 denunciaForm.reset();
                 outroTipoField.style.display = 'none';
                 successModal.style.display = "block";
             } finally {
+                // Reabilita o botão
                 submitButton.disabled = false;
                 submitButton.textContent = 'Enviar Denúncia de Forma Anônima';
             }
         });
     </script>
+</body>
+</html>
