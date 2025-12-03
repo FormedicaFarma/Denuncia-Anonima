@@ -158,22 +158,37 @@
             min-height: 150px;
         }
 
+        /* ESTILOS ALTERADOS PARA CHECKBOXES E RADIOS AO LADO */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap; /* Permite que os itens quebrem para a linha de baixo */
+            gap: 15px; /* Espaçamento entre os grupos de itens */
+        }
+
+        .checkbox-item {
+            margin-bottom: 10px;
+            /* Permite que os itens ocupem cerca de metade do espaço */
+            flex: 1 1 45%; 
+            /* Se for para forçar a quebra, use um valor menor, mas 45% é bom para telas maiores */
+        }
+        
+        /* Ajuste para garantir que a label fique alinhada com o input */
         .checkbox-group label {
             font-weight: 400;
             margin-bottom: 0;
             display: flex;
             align-items: center;
+            cursor: pointer;
         }
 
         .checkbox-group input[type="checkbox"],
         .checkbox-group input[type="radio"] {
             margin-right: 10px;
             transform: scale(1.2);
+            /* Garante que o input seja parte do fluxo sem quebrar a linha */
+            flex-shrink: 0; 
         }
-
-        .checkbox-item {
-            margin-bottom: 10px;
-        }
+        /* FIM DOS ESTILOS ALTERADOS */
 
         /* Estilo para o botão de envio (mantido) */
         button[type="submit"] {
@@ -308,6 +323,10 @@
                 top: 10px; 
                 right: 10px; 
             }
+            /* Em telas pequenas, forçar uma opção por linha */
+             .checkbox-item {
+                flex: 1 1 100%;
+            }
         }
     </style>
 </head>
@@ -354,7 +373,6 @@
                     <option value="">Selecione...</option>
                     <option value="matriz">Matriz - Batel</option>
                     <option value="sede2">Sede 2 - Santa Quitéria</option>
-                    <option value="nao_se_aplica">Não se aplica/Não sei</option>
                 </select>
             </div>
 
@@ -364,7 +382,6 @@
                     <option value="">Selecione...</option>
                     <option value="matriz">Matriz - Batel</option>
                     <option value="sede2">Sede 2 - Santa Quitéria</option>
-                    <option value="outro_local">Outro local (descreva no campo "Onde a situação aconteceu?")</option>
                 </select>
             </div>
 
@@ -379,7 +396,11 @@
                     <div class="checkbox-item"><input type="checkbox" id="tipo6" name="tipo[]" value="abuso_autoridade"><label for="tipo6">Abuso de autoridade</label></div>
                     <div class="checkbox-item"><input type="checkbox" id="tipo7" name="tipo[]" value="irregularidade_trab"><label for="tipo7">Irregularidade trabalhista</label></div>
                     <div class="checkbox-item"><input type="checkbox" id="tipo8" name="tipo[]" value="uso_indevido_recursos"><label for="tipo8">Uso indevido de recursos da empresa</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="tipo9" name="tipo[]" value="outro"><label for="tipo9">Outro (descreva na descrição detalhada)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="tipo9_outro" name="tipo[]" value="outro"><label for="tipo9_outro">Outro</label></div>
+                </div>
+                <div class="form-group" id="outroTipoField" style="display:none; margin-top: 15px;">
+                    <label for="outro_tipo">Qual tipo de situação?</label>
+                    <input type="text" id="outro_tipo" name="outro_tipo" placeholder="Descreva o tipo de situação.">
                 </div>
             </div>
 
@@ -414,7 +435,7 @@
             </div>
 
             <div class="form-group">
-                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: (Opcional - Mantenha o anonimato se preferir)</label>
+                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: (Opcional)</label>
                 <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx">
             </div>
 
@@ -447,27 +468,42 @@
     </div>
 
     <script>
-        // Pega os elementos da DOM
+        // Lógica da Modal
         var modal = document.getElementById("policyModal");
         var btn = document.getElementById("openPolicyBtn");
         var span = document.getElementById("closePolicyBtn");
         
-        // Quando o usuário clica no botão, abre a modal 
         btn.onclick = function() {
           modal.style.display = "block";
         }
         
-        // Quando o usuário clica no (x), fecha a modal
         span.onclick = function() {
           modal.style.display = "none";
         }
         
-        // Quando o usuário clica em qualquer lugar fora da modal, fecha
         window.onclick = function(event) {
           if (event.target == modal) {
             modal.style.display = "none";
           }
         }
+
+        // Lógica para mostrar/esconder o campo "Outro"
+        var outroCheckbox = document.getElementById('tipo9_outro');
+        var outroTipoField = document.getElementById('outroTipoField');
+        var outroTipoInput = document.getElementById('outro_tipo');
+
+        outroCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                // Mostra o campo de texto quando "Outro" é selecionado
+                outroTipoField.style.display = 'block';
+                outroTipoInput.required = true;
+            } else {
+                // Esconde o campo e limpa o valor quando "Outro" é desmarcado
+                outroTipoField.style.display = 'none';
+                outroTipoInput.required = false;
+                outroTipoInput.value = '';
+            }
+        });
     </script>
 </body>
 </html>
