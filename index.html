@@ -538,76 +538,61 @@
             successModal.style.display = "none";
         }
 
-        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET (MODIFICADA) ---
-        denunciaForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
+        // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET (AJUSTE FINAL) ---
+denunciaForm.addEventListener('submit', async function(event) {
+    event.preventDefault(); 
 
-            // 1. COLETAR DADOS DO FORMULÁRIO USANDO FormData
-            const formData = new FormData(denunciaForm);
-            
-            // 2. TRATAMENTO ESPECIAL PARA OS TIPOS DE SITUAÇÃO
-            // O FormData padrão envia todos os "tipo[]" separadamente, o que é ótimo.
-            // Para simplificar a visualização no Webhook, vamos juntar os valores se a opção "Outro" foi usada.
-            
-            const tiposSelecionados = formData.getAll('tipo[]'); // Pega todos os valores de checkbox
-            const outroTipo = formData.get('outro_tipo');
+    const formData = new FormData(denunciaForm);
+    const outroTipo = formData.get('outro_tipo');
+    const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
 
-            if (tiposSelecionados.includes("Outro") && outroTipo) {
-                 // Remove o "Outro" genérico
-                 formData.delete('tipo[]');
-                 
-                 // Adiciona todos os tipos novamente, com o "Outro" detalhado
-                 tiposSelecionados.forEach(tipo => {
-                     if(tipo === "Outro") {
-                         formData.append('tipo[]', `Outro: ${outroTipo}`);
-                     } else {
-                         formData.append('tipo[]', tipo);
-                     }
-                 });
-            }
+    // Processamento do campo 'Outro'
+    const tiposSelecionados = formData.getAll('tipo[]');
+    if (tiposSelecionados.includes("Outro") && outroTipo) {
+         formData.delete('tipo[]');
+         tiposSelecionados.forEach(tipo => {
+             if(tipo === "Outro") {
+                 formData.append('tipo[]', `Outro: ${outroTipo}`);
+             } else {
+                 formData.append('tipo[]', tipo);
+             }
+         });
+    }
+    formData.delete('outro_tipo'); // Limpa o campo extra
 
-            // O campo 'outro_tipo' não é mais necessário após o processamento
-            formData.delete('outro_tipo');
+    try {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Enviando...';
 
-
-            // 3. ENVIAR DADOS VIA FETCH (SEM DEFINIR Content-Type)
-            // Ao não definir o Content-Type e passar o objeto FormData diretamente,
-            // o navegador usa automaticamente 'multipart/form-data', evitando o preflight OPTIONS.
-            try {
-                // Desabilite o botão para evitar cliques duplicados
-                const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
-                submitButton.disabled = true;
-                submitButton.textContent = 'Enviando...';
-
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    // **IMPORTANTE**: Não defina o 'Content-Type' aqui. Deixe o navegador fazer isso.
-                    body: formData // Passa o objeto FormData diretamente
-                });
-
-                if (response.ok || response.status === 200 || response.status === 204) {
-                    // 4. SUCESSO: MOSTRAR MODAL E RESETAR FORM
-                    denunciaForm.reset();
-                    outroTipoField.style.display = 'none'; // Esconde o campo "Outro" novamente
-                    successModal.style.display = "block";
-                } else {
-                    // 5. ERRO NO WEBHOOK (recebeu, mas falhou no processamento, ex: 400, 500)
-                    alert("Erro ao enviar denúncia. O servidor Webhook retornou um erro (" + response.status + ").");
-                    console.error('Webhook failed:', response);
-                }
-
-            } catch (error) {
-                // 6. ERRO NA REQUISIÇÃO (Conexão, CORS, etc.)
-                // Agora este erro é mais raro e real
-                alert("Erro de conexão. Não foi possível enviar a denúncia. Tente novamente.");
-                console.error('Request failed:', error);
-            } finally {
-                // Reabilita o botão
-                const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
-                submitButton.disabled = false;
-                submitButton.textContent = 'Enviar Denúncia de Forma Anônima';
-            }
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            body: formData
         });
+
+        // 1. PRIMEIRA VERIFICAÇÃO: A requisição retornou um código HTTP OK (200-299)?
+        // Se sim, sucesso. A resposta do Webhook.site (ou do seu Webhook final)
+        // deve cair neste bloco.
+        if (response.ok) { 
+            // SUCESSO: MOSTRAR MODAL E RESETAR FORM
+            denunciaForm.reset();
+            outroTipoField.style.display = 'none'; 
+            successModal.style.display = "block";
+        } else {
+            // 2. SEGUNDA VERIFICAÇÃO: A requisição chegou, mas o Webhook deu erro (ex: 400, 500)
+            alert("Erro ao enviar denúncia. O servidor Webhook retornou um código de erro: " + response.status + ".");
+            console.error('Webhook failed (HTTP error):', response);
+        }
+
+    } catch (error) {
+        // 3. TERCEIRA VERIFICAÇÃO: A requisição FALHOU antes de receber uma resposta válida (como no seu caso)
+        // Isso é um erro de rede, CORS, ou uma resposta inválida que derrubou a conexão.
+        alert("🚨 Erro de conexão. Não foi possível receber a confirmação do Webhook. Se os dados foram recebidos (cheque o webhook!), o problema é na resposta. Tente o Webhook Final.");
+        console.error('Request failed (Network/Catch error):', error);
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Enviar Denúncia de Forma Anônima';
+    }
+});
     </script>
 </body>
 </html>
