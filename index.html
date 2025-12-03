@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* O CSS será colocado aqui (no bloco abaixo) */
+        /* O CSS foi ajustado */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f4f7f6; /* Fundo leve */
@@ -37,18 +37,12 @@
             margin-bottom: 30px;
         }
 
-        .logo-placeholder {
-            <img src="Logo - Formedica - Horizontal.png" alt="Formédica Logo" style="max-width: 150px; margin-bottom: 15px;">
-            width: 150px;
-            height: 60px;
-            background-color: #4CAF50; /* Cor de exemplo, mude para a cor principal da Formédica */
-            color: white;
-            line-height: 60px;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin: 0 auto 15px auto;
-            border-radius: 8px;
-            display: block;
+        /* Novo estilo para a imagem de logo */
+        .logo {
+            max-width: 250px; /* Ajuste para o tamanho máximo desejado (ex: 250px) */
+            height: auto;
+            margin: 0 auto 15px auto; /* Centraliza e dá margem inferior */
+            display: block; /* Garante que as margens automáticas funcionem para centralizar */
         }
 
         h1 {
@@ -192,13 +186,16 @@
             h1 {
                 font-size: 1.5em;
             }
+            .logo {
+                max-width: 200px; /* Logo menor em telas pequenas */
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo-placeholder">FORMÉDICA</div>
+            <img src="Logo - Formedica - Horizontal.png" alt="Formédica Logo" class="logo">
             <h1>Canal de Denúncias Anônimas</h1>
         </header>
 
