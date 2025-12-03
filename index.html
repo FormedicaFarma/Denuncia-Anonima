@@ -135,6 +135,7 @@
 
         input[type="text"],
         input[type="date"],
+        /* input[type="email"], REMOVIDO */
         textarea,
         select {
             width: 100%;
@@ -148,6 +149,7 @@
 
         input[type="text"]:focus,
         input[type="date"]:focus,
+        /* input[type="email"]:focus, REMOVIDO */
         textarea:focus,
         select:focus {
             border-color: var(--cor-principal);
@@ -389,7 +391,7 @@
         
         <div class="anonymous-note">
             <label>🔒 Anonimato garantido:</label>
-            <p>**Este formulário não registra e-mails, nomes ou endereços IP.** Sua identidade estará completamente protegida.</p>
+            <p>Este formulário não registra e-mails, nomes ou endereços IP. Seus dados de contato (Whatsapp) são **opcionais** e visam apenas facilitar um possível retorno sobre o caso, mantendo o máximo de sigilo.</p>
         </div>
         
         <div class="intro-text disclaimer">
@@ -431,7 +433,7 @@
                     <div class="checkbox-item"><input type="checkbox" id="tipo8" name="tipo[]" value="Uso indevido de recursos da empresa"><label for="tipo8">Uso indevido de recursos da empresa</label></div>
                     <div class="checkbox-item"><input type="checkbox" id="tipo9_outro" name="tipo[]" value="Outro"><label for="tipo9_outro">Outro</label></div>
                 </div>
-                 <div id="checkboxError" class="error-message">Por favor, selecione pelo menos um tipo de situação para a denúncia.</div>
+                <div id="checkboxError" class="error-message">Por favor, selecione pelo menos um tipo de situação para a denúncia.</div>
                 <div class="form-group" id="outroTipoField" style="display:none; margin-top: 15px;">
                     <label for="outro_tipo">Qual tipo de situação?</label>
                     <input type="text" id="outro_tipo" name="outro_tipo" placeholder="Descreva o tipo de situação.">
@@ -467,12 +469,11 @@
                     <div class="checkbox-item"><input type="radio" id="frequencia4" name="frequencia" value="Não tenho certeza"><label for="frequencia4">Não tenho certeza</label></div>
                 </div>
             </div>
-
+            
             <div class="form-group">
-                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: *</label>
-                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx" required>
+                <label for="whatsapp">Informe o seu Whatsapp para darmos um retorno sobre o caso: (Opcional)</label>
+                <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx">
             </div>
-
             <div class="form-group">
                 <label for="comentario_final">Deseja deixar alguma recomendação ou comentário final? (Opcional)</label>
                 <textarea id="comentario_final" name="comentario_final" placeholder="Alguma observação adicional, sugestão de melhoria ou preocupação."></textarea>
@@ -524,9 +525,11 @@
         var outroTipoField = document.getElementById('outroTipoField');
         var outroTipoInput = document.getElementById('outro_tipo');
         var checkboxError = document.getElementById('checkboxError');
-
+        
         // --- CONFIGURAÇÃO DO WEBHOOK ---
         const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **VERIFIQUE SUA URL**
+        // 🚨 NOVO: E-mail Padrão Fixo para o Payload
+        const EMAIL_AUTOMACAO = "automacaoformedica@gmail.com"; 
 
         // --- LÓGICA DAS MODAIS ---
         openPolicyBtn.onclick = function() {
@@ -600,46 +603,48 @@
 
         // --- LÓGICA DE ENVIO VIA WEBHOOK E RESET ---
         denunciaForm.addEventListener('submit', async function(event) {
-            // Primeiro, chama a validação customizada
+            // 1. Previne o envio padrão do formulário e chama a validação
             if (!validateForm()) {
                 event.preventDefault();
                 return;
             }
-
-            // Se a validação customizada passar, a validação nativa do HTML (para os campos com 'required') será executada
-            // Se a validação nativa falhar, o evento.preventDefault() não terá sido chamado e o formulário será impedido de enviar.
-            
-            // Se o navegador chegou aqui, é porque a validação nativa e a customizada passaram.
             event.preventDefault(); 
+            
             const formData = new FormData(denunciaForm);
-            const outroTipo = formData.get('outro_tipo');
             const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
 
-            // Processamento do campo 'Outro'
+            // 2. ADIÇÃO DO E-MAIL FIXO AQUI NO PAYLOAD
+            // O nome do campo no payload será "email_padrao_automacao"
+            formData.append('email_padrao_automacao', EMAIL_AUTOMACAO); // <--- O ÚNICO E-MAIL NO PAYLOAD
+
+            // 3. Processamento do campo 'Outro' (Mantido de seu código original)
+            const outroTipo = formData.get('outro_tipo');
             const tiposSelecionados = formData.getAll('tipo[]');
+            
+            // Reconstroi os campos 'tipo[]' para incluir a descrição de "Outro"
             if (tiposSelecionados.includes("Outro") && outroTipo) {
                  formData.delete('tipo[]');
                  tiposSelecionados.forEach(tipo => {
-                     if(tipo === "Outro") {
-                         formData.append('tipo[]', `Outro: ${outroTipo}`);
-                     } else {
-                         formData.append('tipo[]', tipo);
-                     }
+                      if(tipo === "Outro") {
+                          formData.append('tipo[]', `Outro: ${outroTipo}`);
+                      } else {
+                          formData.append('tipo[]', tipo);
+                      }
                  });
             }
             formData.delete('outro_tipo'); // Limpa o campo extra
 
 
+            // 4. Envio ao Webhook (Mantido de seu código original)
             try {
                 submitButton.disabled = true;
                 submitButton.textContent = 'Enviando...';
 
                 const response = await fetch(WEBHOOK_URL, {
                     method: 'POST',
-                    body: formData
+                    body: formData 
                 });
 
-                // Se o servidor retornar um status 2xx, o envio foi bem-sucedido.
                 if (response.ok) { 
                     console.log('Denúncia enviada com sucesso (Status 2xx).');
                     // SUCESSO: MOSTRAR MODAL E RESETAR FORM
