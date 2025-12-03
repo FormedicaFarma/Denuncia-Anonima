@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* O CSS foi ajustado para usar #416BA7 como cor principal */
+        /* O CSS foi ajustado para usar #416BA7 como cor principal e adicionar a modal */
         
         /* Cores de Destaque */
         :root {
@@ -147,7 +147,27 @@
             margin-bottom: 10px;
         }
 
-        button {
+        /* Estilo para o novo botão de política */
+        .btn-policy {
+            background-color: transparent;
+            color: var(--cor-principal);
+            border: 2px solid var(--cor-principal);
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 700;
+            transition: background-color 0.3s, color 0.3s;
+            width: 100%;
+            margin-bottom: 25px; /* Espaço antes do formulário */
+        }
+        .btn-policy:hover {
+            background-color: var(--cor-principal);
+            color: white;
+        }
+        
+        /* Estilo para o botão de envio */
+        button[type="submit"] {
             background-color: var(--cor-principal); /* Cor Principal */
             color: white;
             padding: 15px 25px;
@@ -160,11 +180,11 @@
             width: 100%;
         }
 
-        button:hover {
+        button[type="submit"]:hover {
             background-color: var(--cor-secundaria); /* Cor Secundária (azul mais escuro) */
         }
 
-        button:active {
+        button[type="submit"]:active {
             transform: scale(0.99);
         }
 
@@ -184,6 +204,79 @@
             margin-top: 20px;
             border: 1px dashed #ccc;
         }
+        
+        /* ------------------ ESTILOS DA JANELA MODAL ------------------ */
+
+        /* Fundo escuro que cobre toda a tela */
+        .modal {
+            display: none; /* Escondido por padrão */
+            position: fixed; /* Fixado para cobrir toda a tela */
+            z-index: 1000; /* Acima de todo o resto */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Permite scroll se o conteúdo for grande */
+            background-color: rgba(0,0,0,0.7); /* Fundo preto transparente */
+            padding-top: 60px;
+        }
+
+        /* Conteúdo principal da modal */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* Centraliza verticalmente e na horizontal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%; 
+            max-width: 1000px; /* Largura máxima da janela */
+            border-radius: 8px;
+            position: relative;
+            height: 90vh; /* Altura de 90% da viewport */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Botão para fechar a modal */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 35px;
+            font-weight: bold;
+            line-height: 1;
+            margin-left: auto;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: var(--cor-principal);
+            font-size: 1.5em;
+        }
+
+        /* Iframe para carregar o PDF/Política */
+        .policy-viewer {
+            flex-grow: 1; /* Faz o iframe ocupar todo o espaço restante */
+            border: 1px solid #ccc;
+            width: 100%;
+            /* Remover scrollbars desnecessários no iframe */
+            overflow: hidden; 
+        }
+
 
         /* Responsividade básica */
         @media (max-width: 600px) {
@@ -196,6 +289,11 @@
             .logo {
                 max-width: 200px;
             }
+            .modal-content {
+                width: 95%; 
+                margin: 10px auto;
+                height: 95vh;
+            }
         }
     </style>
 </head>
@@ -207,7 +305,7 @@
         </header>
 
         <div class="intro-text">
-            <p>Este formulário é um canal exclusivo e seguro para que você possa relatar, de forma anônima e confidencial, qualquer situação que viole princípios éticos, legais ou as diretrizes da empresa.</p>
+            <p>Este formulário é um canal **exclusivo e seguro** para que você possa relatar, de forma **anônima e confidencial**, qualquer situação que viole princípios éticos, legais ou as diretrizes da empresa.</p>
             <p>Você pode utilizar este espaço para reportar, por exemplo:</p>
             <ul>
                 <li>Assédio moral ou sexual</li>
@@ -217,16 +315,20 @@
                 <li>Condutas inadequadas no ambiente de trabalho</li>
             </ul>
         </div>
+        
+        <button class="btn-policy" id="openPolicyBtn">
+            Ver a Política do Canal de Denúncias
+        </button>
 
         <div class="anonymous-note">
             <label>🔒 Anonimato garantido:</label>
-            <p><label>Este formulário não registra e-mails, nomes ou endereços IP.</label> Sua identidade estará completamente protegida.</p>
+            <p>**Este formulário não registra e-mails, nomes ou endereços IP.** Sua identidade estará completamente protegida.</p>
         </div>
         
         <div class="intro-text disclaimer">
-             <label>💬  <label>Importante:</label>
+             <label>💬 Importante:</label>
              <p>Descreva a situação com o máximo de detalhes possíveis (data, local, pessoas envolvidas, etc.) para facilitar a análise e a tomada de providências. Todas as denúncias serão avaliadas com responsabilidade, imparcialidade e sigilo.</p>
-             <p>A sua voz é fundamental para um ambiente mais ético, seguro e respeitoso.  <label>Denuncie com confiança. Aqui, você será ouvido.</label></p>
+             <p>A sua voz é fundamental para um ambiente mais ético, seguro e respeitoso. **Denuncie com confiança. Aqui, você será ouvido.**</p>
         </div>
 
 
@@ -315,5 +417,42 @@
             <p>Sua identidade é nossa prioridade. Todos os dados são tratados com o mais absoluto sigilo.</p>
         </footer>
     </div>
+
+    <div id="policyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Política do Canal de Denúncias Formédica</h2>
+                <span class="close" id="closePolicyBtn">&times;</span>
+            </div>
+            
+            <iframe id="policyIframe" class="policy-viewer" src="Politica_Canal_Denuncias_Formedica" frameborder="0">
+                <p>Seu navegador não suporta iframes. <a href="Politica_Canal_Denuncias_Formedica." target="_blank">Clique aqui para baixar a política.</a></p>
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        // Pega os elementos da DOM
+        var modal = document.getElementById("policyModal");
+        var btn = document.getElementById("openPolicyBtn");
+        var span = document.getElementById("closePolicyBtn");
+        
+        // Quando o usuário clica no botão, abre a modal 
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+        
+        // Quando o usuário clica no (x), fecha a modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+        
+        // Quando o usuário clica em qualquer lugar fora da modal, fecha
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
 </body>
 </html>
