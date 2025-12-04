@@ -395,9 +395,9 @@
         </div>
         
         <div class="intro-text disclaimer">
-             <label>💬 Importante:</label>
-             <p>Descreva a situação com o máximo de detalhes possíveis (data, local, pessoas envolvidas, etc.) para facilitar a análise e a tomada de providências. Todas as denúncias serão avaliadas com responsabilidade, imparcialidade e sigilo.</p>
-             <p>A sua voz é fundamental para um ambiente mais ético, seguro e respeitoso. Denuncie com confiança. Aqui, você será ouvido.</p>
+            <label>💬 Importante:</label>
+            <p>Descreva a situação com o máximo de detalhes possíveis (data, local, pessoas envolvidas, etc.) para facilitar a análise e a tomada de providências. Todas as denúncias serão avaliadas com responsabilidade, imparcialidade e sigilo.</p>
+            <p>A sua voz é fundamental para um ambiente mais ético, seguro e respeitoso. Denuncie com confiança. Aqui, você será ouvido.</p>
         </div>
 
 
@@ -421,7 +421,7 @@
             </div>
 
             <div class="form-group">
-                <label>Qual é o tipo de situação que você deseja relatar? (Selecione pelo menos uma) *</label>
+                <label>Qual é o  de situação que você deseja relatar? (Selecione pelo menos uma) *</label>
                 <div class="checkbox-group">
                     <div class="checkbox-item"><input type="checkbox" id="tipo1" name="tipo[]" value="Assédio moral"><label for="tipo1">Assédio moral</label></div>
                     <div class="checkbox-item"><input type="checkbox" id="tipo2" name="tipo[]" value="Assédio sexual"><label for="tipo2">Assédio sexual</label></div>
@@ -618,20 +618,30 @@
             // 2. ADIÇÃO DO E-MAIL FIXO NO PAYLOAD (email_padrao_automacao)
             formData.append('email_padrao_automacao', EMAIL_AUTOMACAO); 
 
-            // 3. Processamento do campo 'Outro' (Mantido da lógica original)
+            // 3. Processamento do campo 'Outro'
             const outroTipo = formData.get('outro_tipo');
             const tiposSelecionados = formData.getAll('tipo[]');
             
-            // Reconstroi os campos 'tipo[]' para incluir a descrição de "Outro"
-            if (tiposSelecionados.includes("Outro") && outroTipo) {
-                 formData.delete('tipo[]');
-                 tiposSelecionados.forEach(tipo => {
-                      if(tipo === "Outro") {
-                          formData.append('tipo[]', `Outro: ${outroTipo}`);
-                      } else {
-                          formData.append('tipo[]', tipo);
-                      }
-                 });
+            // =======================================================
+            // 🎯 ALTERAÇÃO CRÍTICA AQUI: Limpar 'tipo[]' e recriar como 'tipo'
+            // =======================================================
+            if (tiposSelecionados.length > 0) {
+                formData.delete('tipo[]'); // 1. EXCLUI a chave original problemática (tipo[])
+                
+                // 2. RECRIA a chave limpa 'tipo' (sem colchetes) com os valores
+                let tipoValue = tiposSelecionados.map(tipo => {
+                    if(tipo === "Outro" && outroTipo) {
+                        return `Outro: ${outroTipo}`;
+                    } else if (tipo !== "Outro") {
+                        return tipo;
+                    }
+                    return null;
+                }).filter(Boolean).join('; '); // Junta tudo em uma única string separada por '; '
+                
+                if (tipoValue) {
+                    // Adiciona a nova chave "tipo" ao FormData
+                    formData.append('tipo', tipoValue); 
+                }
             }
             formData.delete('outro_tipo'); // Limpa o campo extra
 
