@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* O CSS foi mantido inalterado */
+        
         
         /* Cores de Destaque */
         :root {
@@ -74,7 +74,7 @@
             padding-top: 30px;
         }
 
-        /* Atenção: Verifique se este caminho da imagem está correto. */
+       
         .logo {
             max-width: 250px;
             height: auto;
@@ -135,7 +135,7 @@
 
         input[type="text"],
         input[type="date"],
-        /* input[type="email"], REMOVIDO */
+        
         textarea,
         select {
             width: 100%;
@@ -149,7 +149,7 @@
 
         input[type="text"]:focus,
         input[type="date"]:focus,
-        /* input[type="email"]:focus, REMOVIDO */
+        
         textarea:focus,
         select:focus {
             border-color: var(--cor-principal);
@@ -528,7 +528,7 @@
         
         // --- CONFIGURAÇÃO DO WEBHOOK ---
         const WEBHOOK_URL = "https://hook.us2.make.com/gw9mvjbb7lxkkqfam7dbej69fmp1emd3"; // <-- **VERIFIQUE SUA URL**
-        // 🚨 E-mail Padrão Fixo para o Payload (invisível ao usuário)
+        // 🚨 E-mail Padrão Fixo para o Payload
         const EMAIL_AUTOMACAO = "automacaoformedica@gmail.com"; 
 
         // --- LÓGICA DAS MODAIS ---
@@ -561,7 +561,7 @@
                 outroTipoInput.required = false;
                 outroTipoInput.value = '';
             }
-            // Tenta esconder o erro de checkbox se algo foi marcado
+            
             if (document.querySelector('input[name="tipo[]"]:checked')) {
                 checkboxError.style.display = 'none';
             }
@@ -610,7 +610,7 @@
             }
             event.preventDefault(); 
             
-            // O navegador já fará a validação do campo 'required' (whatsapp)
+            
             
             const formData = new FormData(denunciaForm);
             const submitButton = document.querySelector('#denunciaForm button[type="submit"]');
@@ -622,11 +622,9 @@
             const outroTipo = formData.get('outro_tipo');
             const tiposSelecionados = formData.getAll('tipo[]');
             
-            // =======================================================
-            // 🎯 ALTERAÇÃO CRÍTICA AQUI: Limpar 'tipo[]' e recriar como 'tipo'
-            // =======================================================
+            
             if (tiposSelecionados.length > 0) {
-                formData.delete('tipo[]'); // 1. EXCLUI a chave original problemática (tipo[])
+                formData.delete('tipo[]'); 
                 
                 // 2. RECRIA a chave limpa 'tipo' (sem colchetes) com os valores
                 let tipoValue = tiposSelecionados.map(tipo => {
